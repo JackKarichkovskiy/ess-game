@@ -13,7 +13,7 @@ branches:
 #   - npm i -g angular-cli-ghpages
 
 script:
-    - npm run build # Generates the dist folder with built angular app
+  - ng build --prod --base-href='https://jackkarichkovskiy.github.io/ess-game/'
 
 deploy:
   provider: pages
