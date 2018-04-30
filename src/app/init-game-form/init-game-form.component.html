@@ -1,2 +1,30 @@
+<form #f="ngForm" (ngSubmit)="goGame(f.value)">
+    <mat-form-field class="full-width">
+        <input type="number"
+               ngModel
+               name="simpletonsPercent"
+               matInput
+               placeholder="Percentage of simpletons"
+               required>
+        <span matSuffix>%</span>
+        <mat-error>
+            The percentage is
+            <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input type="number"
+               ngModel
+               name="knavesPercent"
+               matInput
+               placeholder="Percentage of knaves"
+               required>
+        <span matSuffix>%</span>
+        <mat-error>
+            The percentage is
+            <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
 
-<mat-checkbox>Test</mat-checkbox>
+    <button mat-raised-button [disabled]="f.invalid">Go!</button>
+</form>
