@@ -1,30 +1,40 @@
-<form #f="ngForm" (ngSubmit)="goGame(f.value)">
+<form #f="ngForm"
+      (ngSubmit)="goGame(f.value)">
     <mat-form-field class="full-width">
         <input type="number"
-               ngModel
+               [(ngModel)]="simpletonsPercent"
                name="simpletonsPercent"
+               #sPer="ngModel"
                matInput
                placeholder="Percentage of simpletons"
+               [range]="[0,100]"
                required>
         <span matSuffix>%</span>
-        <mat-error>
-            The percentage is
-            <strong>required</strong>.
-        </mat-error>
+        <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
+        <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
         <input type="number"
-               ngModel
+               [(ngModel)]="knavesPercent"
                name="knavesPercent"
+               #kPer="ngModel"
                matInput
                placeholder="Percentage of knaves"
+               [range]="[0,100]"
                required>
         <span matSuffix>%</span>
-        <mat-error>
-            The percentage is
-            <strong>required</strong>.
-        </mat-error>
+        <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
+        <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input type="number"
+               matInput
+               disabled="true"
+               placeholder="Percentage of vindictive"
+               [value]="vindictivePercent">
+        <span matSuffix>%</span>
     </mat-form-field>
 
-    <button mat-raised-button [disabled]="f.invalid">Go!</button>
+    <button mat-raised-button
+            [disabled]="f.invalid">Go!</button>
 </form>

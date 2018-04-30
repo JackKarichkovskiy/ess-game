@@ -9,6 +9,8 @@ import { GameConfig } from '../models/game-config';
 })
 export class InitGameFormComponent {
 
+  gameConfig: GameConfig = new GameConfig();
+
   constructor() {
   }
 
@@ -16,4 +18,23 @@ export class InitGameFormComponent {
     console.log(initParams);
   }
 
+  get simpletonsPercent() {
+    return this.gameConfig.simpletonsPercent;
+  }
+
+  set simpletonsPercent(value) {
+    this.gameConfig.simpletonsPercent = value;
+  }
+
+  get knavesPercent() {
+    return this.gameConfig.knavesPercent;
+  }
+
+  set knavesPercent(value) {
+    this.gameConfig.knavesPercent = value;
+  }
+
+  get vindictivePercent() {
+    return this.gameConfig.vindictivePercent;
+  }
 }
