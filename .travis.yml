@@ -1,0 +1,24 @@
+#.travis.yml
+
+language: node_js
+node_js:
+  - "8.9.4"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm i -g @angular/cli
+  - npm i -g angular-cli-ghpages
+
+script:
+  - ng build --prod --base-href='https://jackkarichkovskiy.github.io/ess-game'
+
+after_success:
+  - ngh
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
