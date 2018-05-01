@@ -1,6 +1,8 @@
 
 export class GameConfig {
 
+    static readonly ONE_HUNDRED_PERCENT = 100;
+
     simpletonsPercent: number;
     knavesPercent: number;
 
@@ -9,9 +11,9 @@ export class GameConfig {
     }
 
     get vindictivePercent() {
-        if (!this.simpletonsPercent || !this.knavesPercent) return 0;
+        if (!this.simpletonsPercent || !this.knavesPercent) return -1;
 
-        let restPercentage = 100 - this.simpletonsPercent - this.knavesPercent;
-        return restPercentage >= 0 && restPercentage <= 100 ? restPercentage : 0;
+        let restPercentage = GameConfig.ONE_HUNDRED_PERCENT - this.simpletonsPercent - this.knavesPercent;
+        return (restPercentage >= 0 && restPercentage <= GameConfig.ONE_HUNDRED_PERCENT) ? restPercentage : 0;
     }
 }

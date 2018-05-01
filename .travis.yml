@@ -13,7 +13,8 @@ branches:
 #   - npm i -g angular-cli-ghpages
 
 script:
-  - ng build --prod --base-href='https://jackkarichkovskiy.github.io/ess-game/'
+  - ng test --watch false -cc true -sr true
+  - npm run build
 
 deploy:
   provider: pages
