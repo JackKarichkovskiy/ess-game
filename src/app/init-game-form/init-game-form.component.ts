@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { GameConfig } from '../models/game-config';
+import { GameService } from '../services/game.service';
 
 @Component({
   selector: 'init-game-form',
@@ -10,12 +11,19 @@ import { GameConfig } from '../models/game-config';
 export class InitGameFormComponent {
 
   gameConfig: GameConfig = new GameConfig();
+  gameIsRunning = false;
 
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   goGame(initParams: GameConfig) {
-    console.log(initParams);
+    this.gameIsRunning = true;
+
+    this.gameService.startGame(initParams).subscribe(state => {
+      console.log(state);
+
+      this.gameIsRunning = state.isRunning;
+    });
   }
 
   get simpletonsPercent() {

@@ -40,5 +40,5 @@
     </mat-form-field>
 
     <button mat-raised-button
-            [disabled]="f.invalid">Go!</button>
+            [disabled]="f.invalid || gameIsRunning">Go!</button>
 </form>

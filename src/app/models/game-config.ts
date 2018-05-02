@@ -2,6 +2,8 @@
 export class GameConfig {
 
     static readonly ONE_HUNDRED_PERCENT = 100;
+    static readonly DEFAULT_ANIMATION_SPEED = 100;
+    static readonly DEFAULT_GAME_DURATION = 10;
 
     simpletonsPercent: number;
     knavesPercent: number;
