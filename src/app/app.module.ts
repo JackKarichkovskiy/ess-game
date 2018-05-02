@@ -6,6 +6,7 @@ import { CustomFormsModule } from 'ng2-validation';
 import { AppComponent } from './app.component';
 import { InitGameFormComponent } from './init-game-form/init-game-form.component';
 import { MatComponentsModule } from './mat-components.module';
+import { GameService } from './services/game.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { MatComponentsModule } from './mat-components.module';
     CustomFormsModule,
     MatComponentsModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

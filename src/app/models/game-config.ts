@@ -6,11 +6,11 @@ export class GameConfig {
     simpletonsPercent: number;
     knavesPercent: number;
 
-    constructor(initConfig?: GameConfig) {
+    constructor(initConfig?) {
         Object.assign(this, initConfig);
     }
 
-    get vindictivePercent() {
+    getVindictivePercent() {
         if (!this.simpletonsPercent || !this.knavesPercent) return 0;
 
         let restPercentage = GameConfig.ONE_HUNDRED_PERCENT - this.simpletonsPercent - this.knavesPercent;

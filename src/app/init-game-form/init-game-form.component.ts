@@ -35,6 +35,6 @@ export class InitGameFormComponent {
   }
 
   get vindictivePercent() {
-    return this.gameConfig.vindictivePercent;
+    return this.gameConfig.getVindictivePercent();
   }
 }
