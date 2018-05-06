@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
-import { NgRedux, NgReduxModule } from 'ng2-redux';
+import { NgRedux, NgReduxModule, DevToolsExtension } from 'ng2-redux';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { InitGameFormComponent } from './init-game-form/init-game-form.component';
@@ -24,6 +25,7 @@ import { GameState, rootReducer, INITIAL_STATE } from './models/game-state';
     ReactiveFormsModule,
     CustomFormsModule,
     NgReduxModule,
+    ChartsModule,
     MatComponentsModule
   ],
   providers: [GameService],
@@ -31,7 +33,8 @@ import { GameState, rootReducer, INITIAL_STATE } from './models/game-state';
 })
 export class AppModule {
 
-  constructor(ngRedux: NgRedux<GameState>) {
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  constructor(ngRedux: NgRedux<GameState>, devTools: DevToolsExtension) {
+    var enhancers = isDevMode() ? [devTools.enhancer()] : [];
+    ngRedux.configureStore(rootReducer, INITIAL_STATE, [], enhancers);
   }
 }

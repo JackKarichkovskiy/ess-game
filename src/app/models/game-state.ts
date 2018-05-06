@@ -2,6 +2,7 @@ import { GameConfig } from "./game-config";
 import { GameStatistic } from "./game-statistic";
 import { INIT_STATE } from "./actions";
 import { Inhabitant, Simpleton, Knave, Vindictive } from "./inhabitants";
+import { tassign } from 'tassign';
 
 export interface GameState {
 
@@ -31,24 +32,30 @@ export function rootReducer(state: GameState, action) {
 }
 
 function initState(state: GameState, config: GameConfig): GameState {
-    state.isRunning = true;
+    let result = cloneState(state);
+    console.log('cloneState', result);
+    result.isRunning = true;
 
     const simpletonsAmount = Math.round(GameConfig.CREATION_AMOUNT_PERCENT * config.simpletonsPercent);
-    state.statistic.simpletonsAmount = simpletonsAmount;
+    result.statistic.simpletonsAmount = simpletonsAmount;
     for (let i = 0; i < simpletonsAmount; i++)
-        state.inhabitants.push(new Simpleton());
+        result.inhabitants.push(new Simpleton());
 
     const knavesAmount = Math.round(GameConfig.CREATION_AMOUNT_PERCENT * config.knavesPercent);
-    state.statistic.knavesAmount = knavesAmount;
+    result.statistic.knavesAmount = knavesAmount;
     for (let i = 0; i < knavesAmount; i++)
-        state.inhabitants.push(new Knave());
+        result.inhabitants.push(new Knave());
 
     const vindictiveAmount = Math.round(GameConfig.CREATION_AMOUNT_PERCENT * config.getVindictivePercent());
-    state.statistic.vindictiveAmount = vindictiveAmount;
+    result.statistic.vindictiveAmount = vindictiveAmount;
     for (let i = 0; i < vindictiveAmount; i++)
-        state.inhabitants.push(new Vindictive());
+        result.inhabitants.push(new Vindictive());
 
-    console.log('inhabitants', state);
+    console.log('state', result);
 
-    return state;
+    return result;
+}
+
+function cloneState(state): GameState {
+    return tassign(state, { statistic: tassign(state.statistic) });
 }

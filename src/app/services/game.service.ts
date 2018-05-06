@@ -19,15 +19,5 @@ export class GameService {
 
   startGame(config) {
     this.ngRedux.dispatch({ type: INIT_STATE, config: config });
-
-    // let newGame = new EssGame(new GameConfig(config));
-
-    // return Observable.concat(
-    //   Observable.of(newGame.currentState),
-    //   Observable.timer(GameConfig.DEFAULT_ANIMATION_SPEED, GameConfig.DEFAULT_ANIMATION_SPEED)
-    //     .map(i => newGame.nextGameState())
-    //     .take(GameConfig.DEFAULT_GAME_DURATION),
-    //   Observable.of(newGame.endGame())
-    // );
   }
 }
