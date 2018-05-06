@@ -2,21 +2,27 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InitGameFormComponent } from './init-game-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatComponentsModule } from '../mat-components.module';
 import { CustomFormsModule } from 'ng2-validation';
 import { GameService } from '../services/game.service';
+import { MatComponentsModule } from '../material/mat-components.module';
+import { NgReduxModule, NgRedux } from 'ng2-redux';
+import { rootReducer } from '../models/game-state';
 
 describe('InitGameFormComponent', () => {
   let component: InitGameFormComponent;
   let fixture: ComponentFixture<InitGameFormComponent>;
 
   beforeEach(async(() => {
+    const ngRedux: NgRedux<{}> = new NgRedux(null);
+
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         MatComponentsModule,
         CustomFormsModule,
-        ReactiveFormsModule],
+        ReactiveFormsModule,
+        NgReduxModule
+      ],
       declarations: [InitGameFormComponent],
       providers: [GameService]
     })

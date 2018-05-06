@@ -15,7 +15,6 @@ describe('PercentageValidators', () => {
   });
 
   it('should return error object if sum greater than limit', () => {
-    console.log('START PercentageValidators');
     let control: AbstractControl = new FormGroup({
       simpletonsPercent: new FormControl('50', [
       ]),
