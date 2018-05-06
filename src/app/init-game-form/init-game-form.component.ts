@@ -17,8 +17,6 @@ export class InitGameFormComponent {
   }
 
   goGame(initParams: GameConfig) {
-    this.gameIsRunning = true;
-
     this.gameService.startGame(initParams).subscribe(state => {
       console.log(state);
 

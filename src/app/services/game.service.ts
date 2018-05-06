@@ -15,8 +15,8 @@ export class GameService {
 
   constructor() { }
 
-  startGame(config: GameConfig): Observable<GameState> {
-    let newGame = new EssGame(config);
+  startGame(config): Observable<GameState> {
+    let newGame = new EssGame(new GameConfig(config));
 
     return Observable.concat(
       Observable.of(newGame.currentState),
