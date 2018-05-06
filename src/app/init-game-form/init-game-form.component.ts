@@ -15,31 +15,14 @@ export class InitGameFormComponent {
   gameConfig: GameConfig = new GameConfig();
   gameIsRunning = false;
 
-  // Validation
-  form = new FormGroup({
-    percentageGroup: new FormGroup({
-      simpletonsPercent: new FormControl('', [
-        Validators.required,
-        CustomValidators.range([0, 100]),
-        CustomValidators.digits
-      ]),
-      knavesPercent: new FormControl('', [
-        Validators.required,
-        CustomValidators.range([0, 100]),
-        CustomValidators.digits
-      ])
-    }, PercentageValidators.cannotBeGtThanLimit)
-  });
+  form; // Validation control
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: GameService, fb: FormBuilder) {
+    this.buildFormValidation(fb);
   }
 
   goGame() {
-    this.gameService.startGame(this.gameConfig).subscribe(state => {
-      // console.log(state);
-
-      this.gameIsRunning = state.isRunning;
-    });
+    this.gameService.startGame(this.gameConfig);
   }
 
   get sPer() {
@@ -71,5 +54,24 @@ export class InitGameFormComponent {
 
   get vindictivePercent() {
     return this.gameConfig.getVindictivePercent();
+  }
+
+  private buildFormValidation(fb: FormBuilder) {
+    this.form = fb.group({
+      percentageGroup: fb.group({
+        simpletonsPercent: fb.control('', [
+          Validators.required,
+          CustomValidators.range([0, 100]),
+          CustomValidators.digits
+        ]),
+        knavesPercent: fb.control('', [
+          Validators.required,
+          CustomValidators.range([0, 100]),
+          CustomValidators.digits
+        ])
+      }, {
+          validator: PercentageValidators.cannotBeGtThanLimit
+        })
+    });
   }
 }

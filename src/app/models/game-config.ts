@@ -9,6 +9,7 @@ export class GameConfig {
     static readonly SIMPLETONS_GENERATION_FACTOR = 1.5;
     static readonly KNAVES_GENERATION_FACTOR = 1.5;
     static readonly VINDICTIVE_GENERATION_FACTOR = 1.5;
+    static readonly CREATION_AMOUNT_PERCENT = GameConfig.INHABITANTS_CREATION_AMOUNT / GameConfig.ONE_HUNDRED_PERCENT;
 
     simpletonsPercent: number;
     knavesPercent: number;

@@ -9,26 +9,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import { Subject } from 'rxjs/Subject';
 import { EssGame } from '../models/ess-game';
+import { NgRedux } from 'ng2-redux';
+import { INIT_STATE } from '../models/actions';
 
 @Injectable()
 export class GameService {
 
-  constructor() { }
+  constructor(private ngRedux: NgRedux<GameState>) { }
 
-  startGame(config): Observable<GameState> {
-    let newGame = new EssGame(new GameConfig(config));
+  startGame(config) {
+    this.ngRedux.dispatch({ type: INIT_STATE, config: config });
 
-    return Observable.concat(
-      Observable.of(newGame.currentState),
-      Observable.timer(GameConfig.DEFAULT_ANIMATION_SPEED, GameConfig.DEFAULT_ANIMATION_SPEED)
-        .map(i => newGame.nextGameState())
-        .take(GameConfig.DEFAULT_GAME_DURATION),
-      Observable.of(newGame.endGame())
-    );
+    // let newGame = new EssGame(new GameConfig(config));
+
+    // return Observable.concat(
+    //   Observable.of(newGame.currentState),
+    //   Observable.timer(GameConfig.DEFAULT_ANIMATION_SPEED, GameConfig.DEFAULT_ANIMATION_SPEED)
+    //     .map(i => newGame.nextGameState())
+    //     .take(GameConfig.DEFAULT_GAME_DURATION),
+    //   Observable.of(newGame.endGame())
+    // );
   }
-
-  private emitNewState(observer) {
-
-  }
-
 }
