@@ -1,35 +1,36 @@
 <form #f="ngForm"
-      (ngSubmit)="goGame(f.value)">
-    <mat-form-field class="form-field">
-        <input type="number"
-               [(ngModel)]="simpletonsPercent"
-               name="simpletonsPercent"
-               #sPer="ngModel"
-               matInput
-               placeholder="Percentage of simpletons"
-               [range]="[0,100]"
-               digits
-               required>
-        <span matSuffix>%</span>
-        <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
-        <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-        <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-        <input type="number"
-               [(ngModel)]="knavesPercent"
-               name="knavesPercent"
-               #kPer="ngModel"
-               matInput
-               placeholder="Percentage of knaves"
-               [range]="[0,100]"
-               digits
-               required>
-        <span matSuffix>%</span>
-        <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
-        <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-        <mat-error *ngIf="kPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
-    </mat-form-field>
+      [formGroup]="form"
+      (ngSubmit)="goGame()">
+    <div formGroupName="percentageGroup">
+        <mat-form-field class="form-field">
+            <input type="number"
+                   formControlName="simpletonsPercent"
+                   [(ngModel)]="simpletonsPercent"
+                   name="simpletonsPercent"
+                   matInput
+                   placeholder="Percentage of simpletons">
+            <span matSuffix>%</span>
+            <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
+            <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
+            <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <input type="number"
+                   formControlName="knavesPercent"
+                   [(ngModel)]="knavesPercent"
+                   name="knavesPercent"
+                   matInput
+                   placeholder="Percentage of knaves">
+            <span matSuffix>%</span>
+            <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
+            <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
+            <mat-error *ngIf="kPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+        </mat-form-field>
+
+        <mat-error *ngIf="perGroup.errors?.cannotBeGtThanLimit">
+            The sum of simpletons percent and knaves percent cannot be greater than {{ perGroup.errors?.cannotBeGtThanLimit.limit }}.
+        </mat-error>
+    </div>
     <mat-form-field class="form-field">
         <input type="number"
                matInput

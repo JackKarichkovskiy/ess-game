@@ -1,6 +1,6 @@
 import { GameConfig } from "./game-config";
 import { GameState } from "./game-state";
-import { Inhabitant } from "./inhabitants";
+import { Inhabitant, Simpleton, Knave, Vindictive } from "./inhabitants";
 import { GameStatistic } from "./game-statistic";
 
 export class EssGame {
@@ -45,6 +45,7 @@ export class EssGame {
     }
 
     private addNewInhabitants() {
+
     }
 
     private prepareInitialState(): GameState {
@@ -52,14 +53,23 @@ export class EssGame {
         this.currentState.statistic = new GameStatistic();
 
         const creationAmountPercent = GameConfig.INHABITANTS_CREATION_AMOUNT / GameConfig.ONE_HUNDRED_PERCENT;
-        let simpletonsAmount = Math.round(creationAmountPercent * this.startGameConfig.simpletonsPercent);
+
+        const simpletonsAmount = Math.round(creationAmountPercent * this.startGameConfig.simpletonsPercent);
         this.currentState.statistic.simpletonsAmount = simpletonsAmount;
+        for (let i = 0; i < simpletonsAmount; i++)
+            this.inhabitants.push(new Simpleton());
 
-        let knavesAmount = Math.round(creationAmountPercent * this.startGameConfig.knavesPercent);
+        const knavesAmount = Math.round(creationAmountPercent * this.startGameConfig.knavesPercent);
         this.currentState.statistic.knavesAmount = knavesAmount;
+        for (let i = 0; i < knavesAmount; i++)
+            this.inhabitants.push(new Knave());
 
-        let vindictiveAmount = Math.round(creationAmountPercent * this.startGameConfig.getVindictivePercent());
+        const vindictiveAmount = Math.round(creationAmountPercent * this.startGameConfig.getVindictivePercent());
         this.currentState.statistic.vindictiveAmount = vindictiveAmount;
+        for (let i = 0; i < vindictiveAmount; i++)
+            this.inhabitants.push(new Vindictive());
+
+        console.log('inhabitants', this.inhabitants);
 
         return this.stateCopy();
     }
