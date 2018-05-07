@@ -6,9 +6,9 @@ export class GameConfig {
     static readonly DEFAULT_GAME_DURATION = 10;
     static readonly INHABITANTS_CREATION_FREQUENCY = 5;
     static readonly INHABITANTS_CREATION_AMOUNT = 10;
-    static readonly SIMPLETONS_GENERATION_FACTOR = 1.5;
-    static readonly KNAVES_GENERATION_FACTOR = 1.5;
-    static readonly VINDICTIVE_GENERATION_FACTOR = 1.5;
+    static readonly SIMPLETONS_GENERATION_FACTOR = 0.5;
+    static readonly KNAVES_GENERATION_FACTOR = 0.5;
+    static readonly VINDICTIVE_GENERATION_FACTOR = 0.5;
     static readonly CREATION_AMOUNT_PERCENT = GameConfig.INHABITANTS_CREATION_AMOUNT / GameConfig.ONE_HUNDRED_PERCENT;
 
     simpletonsPercent: number;

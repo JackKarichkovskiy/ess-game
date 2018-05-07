@@ -1,16 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, isDevMode } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomFormsModule } from 'ng2-validation';
-import { NgRedux, NgReduxModule, DevToolsExtension } from 'ng2-redux';
+import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from 'ng2-charts';
+import { DevToolsExtension, NgRedux, NgReduxModule } from 'ng2-redux';
+import { CustomFormsModule } from 'ng2-validation';
 
 import { AppComponent } from './app.component';
-import { InitGameFormComponent } from './init-game-form/init-game-form.component';
-import { GameService } from './services/game.service';
-import { MatComponentsModule } from './material/mat-components.module';
 import { DisplayGameStateComponent } from './display-game-state/display-game-state.component';
-import { GameState, rootReducer, INITIAL_STATE } from './models/game-state';
+import { InitGameFormComponent } from './init-game-form/init-game-form.component';
+import { MatComponentsModule } from './material/mat-components.module';
+import { rootReducer } from './models/actions';
+import { GameState, INITIAL_STATE } from './models/game-state';
+import { GameService } from './services/game.service';
 
 
 @NgModule({

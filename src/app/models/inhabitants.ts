@@ -7,7 +7,7 @@ export abstract class Inhabitant {
     private id = Inhabitant.idCounter++;
 
     constructor(initParams?) {
-        Object.assign(this, initParams);
+        Object.assign(this, initParams); 
     }
 
     private help(other: Inhabitant): boolean {
@@ -21,6 +21,8 @@ export abstract class Inhabitant {
     }
 
     protected abstract isHelping(other: Inhabitant): boolean;
+
+    abstract clone(): Inhabitant;
 
     askHelp(other: Inhabitant): boolean {
         return other.help(this);
@@ -70,12 +72,20 @@ export class Simpleton extends Inhabitant {
     protected isHelping(other: Inhabitant): boolean {
         return true;
     }
+
+    clone(): Simpleton {
+        return Object.assign(new Simpleton(), this);
+    }
 }
 
 export class Knave extends Inhabitant {
 
     protected isHelping(other: Inhabitant): boolean {
         return false;
+    }
+
+    clone(): Knave {
+        return Object.assign(new Knave(), this);
     }
 }
 
@@ -92,6 +102,10 @@ export class Vindictive extends Inhabitant {
 
         this.notHelpingInhabitants.push(other);
         return false;
+    }
+
+    clone(): Vindictive {
+        return Object.assign(new Vindictive(), this);
     }
 }
 

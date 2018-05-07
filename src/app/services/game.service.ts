@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GameConfig } from '../models/game-config';
-import { Observable } from 'rxjs/Observable';
-import { GameState } from '../models/game-state';
-import 'rxjs/add/observable/concat';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
-import { Subject } from 'rxjs/Subject';
-import { EssGame } from '../models/ess-game';
 import { NgRedux } from 'ng2-redux';
-import { INIT_STATE, END_GAME } from '../models/actions';
+
+import { END_GAME, INIT_STATE, NEXT_STEP } from '../models/actions';
+import { GameState } from '../models/game-state';
+import { GameConfig } from '../models/game-config';
 
 @Injectable()
 export class GameService {
@@ -19,6 +12,9 @@ export class GameService {
 
   startGame(config) {
     this.ngRedux.dispatch({ type: INIT_STATE, config: config });
+
+    // for (let i = 0; i < GameConfig.DEFAULT_GAME_DURATION; i++)
+      this.ngRedux.dispatch({ type: NEXT_STEP });
 
     this.ngRedux.dispatch({ type: END_GAME });
   }
