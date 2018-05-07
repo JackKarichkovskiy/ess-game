@@ -10,7 +10,7 @@ import 'rxjs/add/operator/take';
 import { Subject } from 'rxjs/Subject';
 import { EssGame } from '../models/ess-game';
 import { NgRedux } from 'ng2-redux';
-import { INIT_STATE } from '../models/actions';
+import { INIT_STATE, END_GAME } from '../models/actions';
 
 @Injectable()
 export class GameService {
@@ -19,5 +19,7 @@ export class GameService {
 
   startGame(config) {
     this.ngRedux.dispatch({ type: INIT_STATE, config: config });
+
+    this.ngRedux.dispatch({ type: END_GAME });
   }
 }

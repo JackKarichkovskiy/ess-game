@@ -2,9 +2,9 @@ import { GameConfig } from "./game-config";
 
 export class GameStatistic {
 
-    simpletonsAmount: number;
-    knavesAmount: number;
-    vindictiveAmount: number;
+    simpletonsAmount = 0;
+    knavesAmount = 0;
+    vindictiveAmount = 0;
 
     getTotal() {
         return this.simpletonsAmount + this.knavesAmount + this.vindictiveAmount;

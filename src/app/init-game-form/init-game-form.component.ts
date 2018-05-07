@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { select } from 'ng2-redux';
+import { CustomValidators } from 'ng2-validation';
+
 import { GameConfig } from '../models/game-config';
 import { GameService } from '../services/game.service';
-import { CustomValidators } from 'ng2-validation';
 import { PercentageValidators } from './percentage.validators';
 
 @Component({
@@ -13,7 +15,7 @@ import { PercentageValidators } from './percentage.validators';
 export class InitGameFormComponent {
 
   gameConfig: GameConfig = new GameConfig();
-  gameIsRunning = false;
+  @select('isRunning') gameIsRunning;
 
   form; // Validation control
 
