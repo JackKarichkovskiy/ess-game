@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DisplayGameStateComponent } from './display-game-state.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
-import { GameState, rootReducer } from '../models/game-state';
+import { GameState } from '../models/game-state';
 
 xdescribe('DisplayGameStateComponent', () => {
   let component: DisplayGameStateComponent;

@@ -6,7 +6,6 @@ import { CustomFormsModule } from 'ng2-validation';
 import { GameService } from '../services/game.service';
 import { MatComponentsModule } from '../material/mat-components.module';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
-import { rootReducer } from '../models/game-state';
 
 describe('InitGameFormComponent', () => {
   let component: InitGameFormComponent;

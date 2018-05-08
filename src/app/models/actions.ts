@@ -4,6 +4,7 @@ import { GameConfig } from './game-config';
 import { GameState } from './game-state';
 import { Inhabitant, Knave, Simpleton, Vindictive, InhabitantHealth } from './inhabitants';
 import { GameStatistic } from './game-statistic';
+import { DisplayGameStateComponent } from '../display-game-state/display-game-state.component';
 
 export const INIT_STATE = 'INIT_STATE';
 export const NEXT_STEP = 'NEXT_STEP';
@@ -65,13 +66,11 @@ function addInhabitants<T extends Inhabitant>(source: Inhabitant[], count: numbe
 function goToNextPhase(state: GameState): GameState {
     let clone = cloneState(state);
 
-    // Add new inhabitants if needed
-    // if (clone.step % GameConfig.INHABITANTS_CREATION_FREQUENCY === GameConfig.INHABITANTS_CREATION_FREQUENCY - 1)
-    //     addNewGeneration(clone);
+    if (clone.step % GameConfig.INHABITANTS_CREATION_FREQUENCY === GameConfig.INHABITANTS_CREATION_FREQUENCY - 1)
+        addNewGeneration(clone);
 
-    // Try to eliminate venoms
+    tryToEliminateVenoms(clone);
 
-    // Clean dead bodies
     cleanDeadBodies(clone);
 
     clone.step++;
@@ -79,20 +78,48 @@ function goToNextPhase(state: GameState): GameState {
 }
 
 function addNewGeneration(state: GameState): void {
-    let newSimpletonsCount = Math.round(state.statistic.simpletonsAmount * GameConfig.SIMPLETONS_GENERATION_FACTOR);
-    addSimpletons(state, newSimpletonsCount);
+    if (state.statistic.simpletonsAmount > 1) {
+        let newSimpletonsCount = Math.round(state.statistic.simpletonsAmount * GameConfig.SIMPLETONS_GENERATION_FACTOR);
+        addSimpletons(state, newSimpletonsCount);
+    }
 
-    let newKnavesCount = Math.round(state.statistic.knavesAmount * GameConfig.KNAVES_GENERATION_FACTOR);
-    addKnaves(state, newKnavesCount);
+    if (state.statistic.knavesAmount > 1) {
+        let newKnavesCount = Math.round(state.statistic.knavesAmount * GameConfig.KNAVES_GENERATION_FACTOR);
+        addKnaves(state, newKnavesCount);
+    }
 
-    let newVindictiveCount = Math.round(state.statistic.vindictiveAmount * GameConfig.VINDICTIVE_GENERATION_FACTOR);
-    addVindictive(state, newVindictiveCount);
+    if (state.statistic.vindictiveAmount > 1) {
+        let newVindictiveCount = Math.round(state.statistic.vindictiveAmount * GameConfig.VINDICTIVE_GENERATION_FACTOR);
+        addVindictive(state, newVindictiveCount);
+    }
+}
+
+function tryToEliminateVenoms(state: GameState) {
+    let inhabitants = state.inhabitants;
+    for (let i = 0; i < inhabitants.length; i++) {
+        let other = findRandomOther(inhabitants, i);
+
+        console.log('other', other);
+        inhabitants[i].askHelp(other);
+    }
+}
+
+function findRandomOther(inhabitants: Inhabitant[], except?: number): Inhabitant {
+    if (!inhabitants || inhabitants.length < 2) return null;
+
+    let other: Inhabitant;
+    do {
+        let otherIndex = Math.floor(Math.random() * inhabitants.length);
+        if (otherIndex !== except)
+            other = inhabitants[otherIndex];
+    } while (!other);
+
+    return other;
 }
 
 function cleanDeadBodies(state: GameState): void {
     state.inhabitants = state.inhabitants.filter(i => {
-        // console.log(i, i.isDead);
-        return !i.isDead;
+        return !i.isDead();
     });
     refreshStatistic(state);
 }
@@ -117,7 +144,7 @@ function endGame(state: GameState): GameState {
     return result;
 }
 
-function cloneState(state: GameState): GameState {
+export function cloneState(state: GameState): GameState {
     let clonedInhabitants: Inhabitant[] = [];
     for (let inhabitant of state.inhabitants)
         clonedInhabitants.push(inhabitant.clone());

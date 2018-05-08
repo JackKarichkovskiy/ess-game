@@ -2,12 +2,14 @@
 export abstract class Inhabitant {
 
     private static idCounter = 0;
-    private _health: InhabitantHealth = InhabitantHealth.Healthy;
+    health: InhabitantHealth = InhabitantHealth.Healthy;
 
     private id = Inhabitant.idCounter++;
+    private className: string;
 
     constructor(initParams?) {
-        Object.assign(this, initParams); 
+        Object.assign(this, initParams);
+        this.className = this.constructor.name;
     }
 
     private help(other: Inhabitant): boolean {
@@ -25,45 +27,46 @@ export abstract class Inhabitant {
     abstract clone(): Inhabitant;
 
     askHelp(other: Inhabitant): boolean {
+        if (!other) {
+            this.downgradeHealth();
+            return false;
+        }
+
         return other.help(this);
     }
 
     private downgradeHealth() {
-        switch (this._health) {
+        switch (this.health) {
             case InhabitantHealth.Healthy:
-                this._health = InhabitantHealth.Wounded;
+                this.health = InhabitantHealth.Wounded;
                 break;
             case InhabitantHealth.Wounded:
-                this._health = InhabitantHealth.Dead;
+                this.health = InhabitantHealth.Dead;
                 break;
             case InhabitantHealth.Dead:
                 break;
             default:
-                throw new Error('Unpredictable health state: ' + this._health);
+                throw new Error('Unpredictable health state: ' + this.health);
         }
     }
 
     private upgradeHealth() {
-        switch (this._health) {
+        switch (this.health) {
             case InhabitantHealth.Healthy:
                 break;
             case InhabitantHealth.Wounded:
-                this._health = InhabitantHealth.Healthy;
+                this.health = InhabitantHealth.Healthy;
                 break;
             case InhabitantHealth.Dead:
                 // Nothing could be done
                 break;
             default:
-                throw new Error('Unpredictable health state: ' + this._health);
+                throw new Error('Unpredictable health state: ' + this.health);
         }
     }
 
-    get health() {
-        return this._health;
-    }
-
-    get isDead() {
-        return this._health === InhabitantHealth.Dead;
+    isDead() {
+        return this.health === InhabitantHealth.Dead;
     }
 }
 
@@ -100,12 +103,13 @@ export class Vindictive extends Inhabitant {
     askHelp(other: Inhabitant): boolean {
         if (super.askHelp(other)) return true;
 
-        this.notHelpingInhabitants.push(other);
+        if (!this.notHelpingInhabitants.includes(other))
+            this.notHelpingInhabitants.push(other);
         return false;
     }
 
     clone(): Vindictive {
-        return Object.assign(new Vindictive(), this);
+        return Object.assign(new Vindictive(), this, { notHelpingInhabitants: Object.assign([], this.notHelpingInhabitants) });
     }
 }
 
