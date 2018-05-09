@@ -27,6 +27,10 @@ export class InitGameFormComponent {
     await this.gameService.startGame(this.gameConfig);
   }
 
+  stopGame() {
+    this.gameService.stopGame();
+  }
+
   get sPer() {
     return this.form.get('percentageGroup.simpletonsPercent');
   }

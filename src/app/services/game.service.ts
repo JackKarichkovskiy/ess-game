@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
+import { Injectable, EventEmitter } from '@angular/core';
+import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Rx';
 import { timer } from 'rxjs/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/concat';
 
 import { END_GAME, INIT_STATE, NEXT_STEP } from '../models/actions';
@@ -13,27 +14,41 @@ import { GameState } from '../models/game-state';
 @Injectable()
 export class GameService {
 
-  constructor(private ngRedux: NgRedux<GameState>) { }
+  private endGameEmitter: EventEmitter<boolean> = new EventEmitter();
+
+  constructor(private ngRedux: NgRedux<GameState>) {
+  }
 
   startGame(config: GameConfig): Promise<any> {
-    let init = new Observable(observer => {
-      this.ngRedux.dispatch({ type: INIT_STATE, config: config });
-      observer.complete();
-    });
+    return this.prepareInit(config)
+      .concat(this.prepareNextSteps(config))
+      .concat(this.endGame())
+      .toPromise();
+  }
 
-    let delay = config.animationSpeed;
-    let nextSteps = Observable.timer(delay, delay)
-      .map(i => {
-        this.ngRedux.dispatch({ type: NEXT_STEP });
-        return i;
-      })
-      .take(GameConfig.DEFAULT_GAME_DURATION);
-
-    let endGame = new Observable(observer => {
+  endGame(): Observable<any> {
+    return new Observable(observer => {
       this.ngRedux.dispatch({ type: END_GAME });
       observer.complete();
     });
+  }
 
-    return init.concat(nextSteps).concat(endGame).toPromise();
+  stopGame() {
+    this.endGameEmitter.emit(true);
+  }
+
+  private prepareInit(config: GameConfig): Observable<any> {
+    return new Observable(observer => {
+      this.ngRedux.dispatch({ type: INIT_STATE, config: config });
+      observer.complete();
+    });
+  }
+
+  private prepareNextSteps(config: GameConfig): Promise<any> {
+    let delay = config.animationSpeed;
+    return Observable.timer(delay, delay)
+      .takeUntil(this.endGameEmitter)
+      .take(GameConfig.DEFAULT_GAME_DURATION)
+      .forEach(i => this.ngRedux.dispatch({ type: NEXT_STEP }));
   }
 }
