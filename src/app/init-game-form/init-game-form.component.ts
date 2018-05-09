@@ -23,8 +23,8 @@ export class InitGameFormComponent {
     this.buildFormValidation(fb);
   }
 
-  goGame() {
-    this.gameService.startGame(this.gameConfig);
+  async goGame() {
+    await this.gameService.startGame(this.gameConfig);
   }
 
   get sPer() {

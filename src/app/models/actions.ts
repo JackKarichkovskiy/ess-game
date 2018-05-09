@@ -99,7 +99,6 @@ function tryToEliminateVenoms(state: GameState) {
     for (let i = 0; i < inhabitants.length; i++) {
         let other = findRandomOther(inhabitants, i);
 
-        console.log('other', other);
         inhabitants[i].askHelp(other);
     }
 }
