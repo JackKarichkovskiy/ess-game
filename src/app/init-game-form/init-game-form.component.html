@@ -1,6 +1,6 @@
 <form #f="ngForm"
       [formGroup]="form"
-      (ngSubmit)="goGame(f)">
+      (ngSubmit)="goGame()">
     <div formGroupName="percentageGroup">
         <mat-form-field class="form-field">
             <input type="number"
@@ -64,7 +64,7 @@
     <div>
         <button mat-raised-button
                 color="primary"
-                [disabled]="!f.valid || (gameIsRunning | async)">Go!</button>
+                [disabled]="f.invalid || (gameIsRunning | async)">Go!</button>
         <button mat-raised-button
                 type="button"
                 color="accent"
