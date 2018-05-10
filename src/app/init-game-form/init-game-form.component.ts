@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { select } from 'ng2-redux';
 import { CustomValidators } from 'ng2-validation';
 
 import { GameConfig } from '../models/game-config';
 import { GameService } from '../services/game.service';
 import { PercentageValidators } from './percentage.validators';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'init-game-form',
@@ -17,9 +18,13 @@ export class InitGameFormComponent {
   gameConfig: GameConfig = new GameConfig();
   @select('isRunning') gameIsRunning;
 
-  form; // Validation control
+  randomSeedEnabled = false;
 
-  constructor(private gameService: GameService, fb: FormBuilder) {
+  form: AbstractControl; // Validation control
+
+  constructor(private cd: ChangeDetectorRef,
+    private gameService: GameService,
+    fb: FormBuilder) {
     this.buildFormValidation(fb);
   }
 
@@ -31,6 +36,18 @@ export class InitGameFormComponent {
     this.gameService.stopGame();
   }
 
+  randomSeedChanged($event: MatSlideToggleChange) {
+    this.randomSeedEnabled = $event.checked;
+    if (this.randomSeedEnabled) {
+      this.gameConfig.randomSeed = GameConfig.DEFAULT_RANDOM_SEED;
+      this.ranSeed.enable();
+      this.cd.detectChanges();
+    } else {
+      this.gameConfig.randomSeed = undefined;
+      this.ranSeed.disable();
+    }
+  }
+
   get sPer() {
     return this.form.get('percentageGroup.simpletonsPercent');
   }
@@ -38,28 +55,17 @@ export class InitGameFormComponent {
   get kPer() {
     return this.form.get('percentageGroup.knavesPercent');
   }
+
   get perGroup() {
     return this.form.get('percentageGroup');
   }
 
-  get simpletonsPercent() {
-    return this.gameConfig.simpletonsPercent;
+  get advSettGroup() {
+    return this.form.get('advSettingsGroup');
   }
 
-  set simpletonsPercent(value) {
-    this.gameConfig.simpletonsPercent = value;
-  }
-
-  get knavesPercent() {
-    return this.gameConfig.knavesPercent;
-  }
-
-  set knavesPercent(value) {
-    this.gameConfig.knavesPercent = value;
-  }
-
-  get vindictivePercent() {
-    return this.gameConfig.getVindictivePercent();
+  get ranSeed() {
+    return this.form.get('advSettingsGroup.randomSeed');
   }
 
   private buildFormValidation(fb: FormBuilder) {
@@ -77,7 +83,12 @@ export class InitGameFormComponent {
         ])
       }, {
           validator: PercentageValidators.cannotBeGtThanLimit
-        })
+        }),
+      advSettingsGroup: fb.group({
+        randomSeed: fb.control({
+          disabled: true
+        }, Validators.required)
+      })
     });
   }
 }

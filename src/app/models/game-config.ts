@@ -10,11 +10,13 @@ export class GameConfig {
     static readonly KNAVES_GENERATION_FACTOR = 0.5;
     static readonly VINDICTIVE_GENERATION_FACTOR = 0.5;
     static readonly CREATION_AMOUNT_PERCENT = GameConfig.INHABITANTS_CREATION_AMOUNT / GameConfig.ONE_HUNDRED_PERCENT;
+    static readonly DEFAULT_RANDOM_SEED = 10;
 
     simpletonsPercent: number;
     knavesPercent: number;
 
     animationSpeed = GameConfig.DEFAULT_ANIMATION_SPEED;
+    randomSeed: number;
 
     constructor(initConfig?) {
         Object.assign(this, initConfig);

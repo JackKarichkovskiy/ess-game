@@ -1,11 +1,11 @@
 <form #f="ngForm"
       [formGroup]="form"
-      (ngSubmit)="goGame()">
+      (ngSubmit)="goGame(f)">
     <div formGroupName="percentageGroup">
         <mat-form-field class="form-field">
             <input type="number"
                    formControlName="simpletonsPercent"
-                   [(ngModel)]="simpletonsPercent"
+                   [(ngModel)]="gameConfig.simpletonsPercent"
                    name="simpletonsPercent"
                    matInput
                    placeholder="Percentage of simpletons">
@@ -17,7 +17,7 @@
         <mat-form-field class="form-field">
             <input type="number"
                    formControlName="knavesPercent"
-                   [(ngModel)]="knavesPercent"
+                   [(ngModel)]="gameConfig.knavesPercent"
                    name="knavesPercent"
                    matInput
                    placeholder="Percentage of knaves">
@@ -36,16 +36,39 @@
                matInput
                disabled="true"
                placeholder="Percentage of vindictive"
-               [value]="vindictivePercent">
+               [value]="gameConfig.getVindictivePercent()">
         <span matSuffix>%</span>
     </mat-form-field>
 
-    <button mat-raised-button
-            color="primary"
-            [disabled]="f.invalid || (gameIsRunning | async)">Go!</button>
-    <button mat-raised-button
-            type="button"
-            color="accent"
-            [disabled]="!(gameIsRunning | async)"
-            (click)="stopGame()">Stop</button>
+    <div>
+        <mat-slide-toggle #advSettings>Advanced settings</mat-slide-toggle>
+        <div formGroupName="advSettingsGroup"
+             *ngIf="advSettings.checked">
+            <mat-slide-toggle [checked]="randomSeedEnabled"
+                              (change)="randomSeedChanged($event)">
+                Enable random seed
+            </mat-slide-toggle>
+            <mat-form-field *ngIf="randomSeedEnabled"
+                            class="form-field">
+                <input type="number"
+                       matInput
+                       formControlName="randomSeed"
+                       name="randomSeed"
+                       placeholder="Random Seed"
+                       [(ngModel)]="gameConfig.randomSeed">
+                <mat-error *ngIf="ranSeed.errors?.required">The random seed is required.</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div>
+        <button mat-raised-button
+                color="primary"
+                [disabled]="!f.valid || (gameIsRunning | async)">Go!</button>
+        <button mat-raised-button
+                type="button"
+                color="accent"
+                [disabled]="!(gameIsRunning | async)"
+                (click)="stopGame()">Stop</button>
+    </div>
 </form>

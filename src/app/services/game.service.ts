@@ -1,11 +1,6 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { NgRedux, select } from 'ng2-redux';
+import { EventEmitter, Injectable } from '@angular/core';
+import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Rx';
-import { timer } from 'rxjs/observable/timer';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/concat';
 
 import { END_GAME, INIT_STATE, NEXT_STEP } from '../models/actions';
 import { GameConfig } from '../models/game-config';

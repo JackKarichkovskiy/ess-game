@@ -5,6 +5,7 @@ import { GameState } from './game-state';
 import { Inhabitant, Knave, Simpleton, Vindictive, InhabitantHealth } from './inhabitants';
 import { GameStatistic } from './game-statistic';
 import { DisplayGameStateComponent } from '../display-game-state/display-game-state.component';
+import { RandomGenerator } from '../utils/random';
 
 export const INIT_STATE = 'INIT_STATE';
 export const NEXT_STEP = 'NEXT_STEP';
@@ -29,6 +30,8 @@ function initState(state: GameState, config: GameConfig): GameState {
     result.statistic = new GameStatistic();
     result.inhabitants = [];
     result.step = 0;
+
+    setupRandomSeedIfNeeded(config);
 
     const simpletonsAmount = Math.round(GameConfig.CREATION_AMOUNT_PERCENT * config.simpletonsPercent);
     addSimpletons(result, simpletonsAmount);
@@ -108,7 +111,7 @@ function findRandomOther(inhabitants: Inhabitant[], except?: number): Inhabitant
 
     let other: Inhabitant;
     do {
-        let otherIndex = Math.floor(Math.random() * inhabitants.length);
+        let otherIndex = Math.floor(RandomGenerator.nextFloat() * inhabitants.length);
         if (otherIndex !== except)
             other = inhabitants[otherIndex];
     } while (!other);
@@ -141,6 +144,10 @@ function endGame(state: GameState): GameState {
     let result = cloneState(state);
     result.isRunning = false;
     return result;
+}
+
+function setupRandomSeedIfNeeded(config: GameConfig) {
+    RandomGenerator.setup(config.randomSeed);
 }
 
 export function cloneState(state: GameState): GameState {

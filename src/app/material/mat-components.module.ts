@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   exports: [
@@ -12,7 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule
   ]
 })
 export class MatComponentsModule { }
