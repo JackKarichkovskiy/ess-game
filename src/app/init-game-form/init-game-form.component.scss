@@ -1,6 +1,12 @@
 
 $marginBetweenSettAndButtons: 15px;
 
+@mixin margin-vert($margin) {
+    margin-top: $margin;
+    margin-bottom: $margin;
+  }
+  
+
 .settings {
     margin-bottom: $marginBetweenSettAndButtons;
 }
@@ -18,17 +24,10 @@ $marginBetweenSettAndButtons: 15px;
 
 .form-group > * {
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    @include margin-vert(10px);
 }
 
-.random-seed-group {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.random-seed-group > * {
+.adv-sett-field-group > * {
     width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    @include margin-vert(5px);
 }

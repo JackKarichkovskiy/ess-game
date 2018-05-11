@@ -19,6 +19,7 @@ export class InitGameFormComponent {
   @select('isRunning') gameIsRunning;
 
   randomSeedEnabled = false;
+  gameDurationEnabled = false;
 
   form: AbstractControl; // Validation control
 
@@ -48,6 +49,16 @@ export class InitGameFormComponent {
     }
   }
 
+  gameDurationChanged($event: MatSlideToggleChange) {
+    this.gameDurationEnabled = $event.checked;
+    this.gameConfig.gameDuration = GameConfig.DEFAULT_GAME_DURATION;
+    if (this.gameDurationEnabled) {
+      this.gameDur.enable();
+      this.cd.detectChanges();
+    } else
+      this.gameDur.disable();
+  }
+
   get sPer() {
     return this.form.get('percentageGroup.simpletonsPercent');
   }
@@ -68,6 +79,10 @@ export class InitGameFormComponent {
     return this.form.get('advSettingsGroup.randomSeed');
   }
 
+  get gameDur() {
+    return this.form.get('advSettingsGroup.gameDuration');
+  }
+
   private buildFormValidation(fb: FormBuilder) {
     this.form = fb.group({
       percentageGroup: fb.group({
@@ -86,8 +101,20 @@ export class InitGameFormComponent {
         }),
       advSettingsGroup: fb.group({
         randomSeed: fb.control({
+          value: '',
           disabled: true
-        }, Validators.required)
+        }, [
+            Validators.required,
+            CustomValidators.digits
+          ]),
+        gameDuration: fb.control({
+          value: '',
+          disabled: true
+        }, [
+            Validators.required,
+            CustomValidators.gt(0),
+            CustomValidators.digits
+          ])
       })
     });
   }

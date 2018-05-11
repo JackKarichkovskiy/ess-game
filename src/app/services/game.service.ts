@@ -43,7 +43,7 @@ export class GameService {
     let delay = config.animationSpeed;
     return Observable.timer(delay, delay)
       .takeUntil(this.endGameEmitter)
-      .take(GameConfig.DEFAULT_GAME_DURATION)
+      .take(config.gameDuration)
       .forEach(i => this.ngRedux.dispatch({ type: NEXT_STEP }));
   }
 }

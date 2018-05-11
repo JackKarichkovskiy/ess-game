@@ -2,8 +2,8 @@
 export class GameConfig {
 
     static readonly ONE_HUNDRED_PERCENT = 100;
-    static readonly DEFAULT_ANIMATION_SPEED = 500;
-    static readonly DEFAULT_GAME_DURATION = 10;
+    static readonly DEFAULT_ANIMATION_SPEED = 300;
+    static readonly DEFAULT_GAME_DURATION = 100;
     static readonly INHABITANTS_CREATION_FREQUENCY = 5;
     static readonly INHABITANTS_CREATION_AMOUNT = 10;
     static readonly SIMPLETONS_GENERATION_FACTOR = 0.5;
@@ -16,6 +16,7 @@ export class GameConfig {
     knavesPercent: number;
 
     animationSpeed = GameConfig.DEFAULT_ANIMATION_SPEED;
+    gameDuration = GameConfig.DEFAULT_GAME_DURATION;
     randomSeed: number;
 
     constructor(initConfig?) {

@@ -63,10 +63,10 @@
 
                 <div formGroupName="advSettingsGroup"
                      class="form-group">
-                    <div class="random-seed-group">
+                    <div class="adv-sett-field-group">
                         <mat-slide-toggle [checked]="randomSeedEnabled"
                                           (change)="randomSeedChanged($event)">
-                            Enable random seed
+                            Config random seed
                         </mat-slide-toggle>
                         <mat-form-field *ngIf="randomSeedEnabled"
                                         class="form-field">
@@ -77,6 +77,25 @@
                                    placeholder="Random Seed"
                                    [(ngModel)]="gameConfig.randomSeed">
                             <mat-error *ngIf="ranSeed.errors?.required">The random seed is required.</mat-error>
+                            <mat-error *ngIf="ranSeed.errors?.digits">The random seed needs to be integer, not decimal.</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="adv-sett-field-group">
+                        <mat-slide-toggle [checked]="gameDurationEnabled"
+                                          (change)="gameDurationChanged($event)">
+                            Config game duration
+                        </mat-slide-toggle>
+                        <mat-form-field *ngIf="gameDurationEnabled"
+                                        class="form-field">
+                            <input type="number"
+                                   matInput
+                                   formControlName="gameDuration"
+                                   name="gameDuration"
+                                   placeholder="Game Duration"
+                                   [(ngModel)]="gameConfig.gameDuration">
+                            <mat-error *ngIf="gameDur.errors?.required">The game duration is required.</mat-error>
+                            <mat-error *ngIf="gameDur.errors?.gt">The game duration needs to be positive.</mat-error>
+                            <mat-error *ngIf="gameDur.errors?.digits">The game duration needs to be integer, not decimal.</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -86,7 +105,8 @@
 
     <div class="buttons">
         <button mat-raised-button
-                color="primary">Go!</button>
+                color="primary"
+                [disabled]="f.invalid || (gameIsRunning | async)">Go!</button>
         <button mat-raised-button
                 type="button"
                 color="accent"
