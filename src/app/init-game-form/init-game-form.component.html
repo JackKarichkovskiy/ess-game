@@ -1,70 +1,92 @@
 <form #f="ngForm"
       [formGroup]="form"
       (ngSubmit)="goGame()">
-    <div formGroupName="percentageGroup">
-        <mat-form-field class="form-field">
-            <input type="number"
-                   formControlName="simpletonsPercent"
-                   [(ngModel)]="gameConfig.simpletonsPercent"
-                   name="simpletonsPercent"
-                   matInput
-                   placeholder="Percentage of simpletons">
-            <span matSuffix>%</span>
-            <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
-            <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-            <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-            <input type="number"
-                   formControlName="knavesPercent"
-                   [(ngModel)]="gameConfig.knavesPercent"
-                   name="knavesPercent"
-                   matInput
-                   placeholder="Percentage of knaves">
-            <span matSuffix>%</span>
-            <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
-            <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-            <mat-error *ngIf="kPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
-        </mat-form-field>
 
-        <mat-error *ngIf="perGroup.errors?.cannotBeGtThanLimit">
-            The sum of simpletons percent and knaves percent cannot be greater than {{ perGroup.errors?.cannotBeGtThanLimit.limit }}.
-        </mat-error>
+    <div class="settings">
+        <mat-accordion>
+            <mat-expansion-panel [class.invalidPanel]="f.submitted && perGroup.invalid"
+                                 expanded="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        General game settings
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div formGroupName="percentageGroup"
+                     class="form-group">
+                    <mat-form-field class="form-field">
+                        <input type="number"
+                               formControlName="simpletonsPercent"
+                               [(ngModel)]="gameConfig.simpletonsPercent"
+                               name="simpletonsPercent"
+                               matInput
+                               placeholder="Percentage of simpletons">
+                        <span matSuffix>%</span>
+                        <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
+                        <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
+                        <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                        <input type="number"
+                               formControlName="knavesPercent"
+                               [(ngModel)]="gameConfig.knavesPercent"
+                               name="knavesPercent"
+                               matInput
+                               placeholder="Percentage of knaves">
+                        <span matSuffix>%</span>
+                        <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
+                        <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
+                        <mat-error *ngIf="kPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+                    </mat-form-field>
+
+                    <mat-error *ngIf="perGroup.errors?.cannotBeGtThanLimit">
+                        The sum of simpletons percent and knaves percent cannot be greater than {{ perGroup.errors?.cannotBeGtThanLimit.limit }}.
+                    </mat-error>
+
+                    <mat-form-field class="form-field">
+                        <input type="number"
+                               matInput
+                               disabled="true"
+                               placeholder="Percentage of vindictive"
+                               [value]="gameConfig.getVindictivePercent()">
+                        <span matSuffix>%</span>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [class.invalidPanel]="f.submitted && advSettGroup.invalid">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Advanced game settings
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div formGroupName="advSettingsGroup"
+                     class="form-group">
+                    <div class="random-seed-group">
+                        <mat-slide-toggle [checked]="randomSeedEnabled"
+                                          (change)="randomSeedChanged($event)">
+                            Enable random seed
+                        </mat-slide-toggle>
+                        <mat-form-field *ngIf="randomSeedEnabled"
+                                        class="form-field">
+                            <input type="number"
+                                   matInput
+                                   formControlName="randomSeed"
+                                   name="randomSeed"
+                                   placeholder="Random Seed"
+                                   [(ngModel)]="gameConfig.randomSeed">
+                            <mat-error *ngIf="ranSeed.errors?.required">The random seed is required.</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
-    <mat-form-field class="form-field">
-        <input type="number"
-               matInput
-               disabled="true"
-               placeholder="Percentage of vindictive"
-               [value]="gameConfig.getVindictivePercent()">
-        <span matSuffix>%</span>
-    </mat-form-field>
 
-    <div>
-        <mat-slide-toggle #advSettings>Advanced settings</mat-slide-toggle>
-        <div formGroupName="advSettingsGroup"
-             *ngIf="advSettings.checked">
-            <mat-slide-toggle [checked]="randomSeedEnabled"
-                              (change)="randomSeedChanged($event)">
-                Enable random seed
-            </mat-slide-toggle>
-            <mat-form-field *ngIf="randomSeedEnabled"
-                            class="form-field">
-                <input type="number"
-                       matInput
-                       formControlName="randomSeed"
-                       name="randomSeed"
-                       placeholder="Random Seed"
-                       [(ngModel)]="gameConfig.randomSeed">
-                <mat-error *ngIf="ranSeed.errors?.required">The random seed is required.</mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-
-    <div>
+    <div class="buttons">
         <button mat-raised-button
-                color="primary"
-                [disabled]="f.invalid || (gameIsRunning | async)">Go!</button>
+                color="primary">Go!</button>
         <button mat-raised-button
                 type="button"
                 color="accent"

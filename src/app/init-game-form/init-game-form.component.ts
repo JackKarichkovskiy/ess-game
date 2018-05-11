@@ -11,7 +11,7 @@ import { MatSlideToggleChange } from '@angular/material';
 @Component({
   selector: 'init-game-form',
   templateUrl: './init-game-form.component.html',
-  styleUrls: ['./init-game-form.component.css']
+  styleUrls: ['./init-game-form.component.scss']
 })
 export class InitGameFormComponent {
 
