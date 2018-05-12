@@ -2,4 +2,4 @@
 
 /* Clear floats after the columns */.row:after{content:"";display:table;clear:both}
 
-/* Create two unequal columns that floats next to each other */.column{padding:10px;margin:10px}.left{float:left;width:25%}.right{float:right;width:75%}
+/* Create two unequal columns that floats next to each other */.column{margin:10px}.left{float:left;width:25%}.right{float:right;width:75%}
