@@ -1,9 +1,9 @@
 <div *ngIf="data; else noData"
      style="display: block">
-  <canvas baseChart
-          [data]="data"
-          [labels]="chartLabels"
-          [chartType]="chartType"></canvas>
+        <canvas baseChart
+                [data]="data"
+                [labels]="chartLabels"
+                [chartType]="chartType"></canvas>
 </div>
 
 <ng-template #noData>You need to run game first...</ng-template>

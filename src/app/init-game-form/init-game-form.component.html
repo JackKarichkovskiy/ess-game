@@ -13,8 +13,8 @@
                 </mat-expansion-panel-header>
 
                 <div formGroupName="percentageGroup"
-                     class="form-group">
-                    <mat-form-field class="form-field">
+                          class="form-group">
+                    <mat-form-field>
                         <input type="number"
                                formControlName="simpletonsPercent"
                                [(ngModel)]="gameConfig.simpletonsPercent"
@@ -26,7 +26,7 @@
                         <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
                         <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
                     </mat-form-field>
-                    <mat-form-field class="form-field">
+                    <mat-form-field>
                         <input type="number"
                                formControlName="knavesPercent"
                                [(ngModel)]="gameConfig.knavesPercent"
@@ -43,7 +43,7 @@
                         The sum of simpletons percent and knaves percent cannot be greater than {{ perGroup.errors?.cannotBeGtThanLimit.limit }}.
                     </mat-error>
 
-                    <mat-form-field class="form-field">
+                    <mat-form-field>
                         <input type="number"
                                matInput
                                disabled="true"
@@ -51,6 +51,16 @@
                                [value]="gameConfig.getVindictivePercent()">
                         <span matSuffix>%</span>
                     </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <label for="gameSpeed">Game Speed</label>
+                    <mat-slider id="gameSpeed"
+                                formControlName="animationSpeed"
+                                min="100"
+                                max="2000"
+                                thumbLabel="true"
+                                [(ngModel)]="gameConfig.animationSpeed"></mat-slider>
                 </div>
             </mat-expansion-panel>
 
@@ -62,7 +72,7 @@
                 </mat-expansion-panel-header>
 
                 <div formGroupName="advSettingsGroup"
-                     class="form-group">
+                          class="form-group">
                     <div class="adv-sett-field-group">
                         <mat-slide-toggle [checked]="randomSeedEnabled"
                                           (change)="randomSeedChanged($event)">

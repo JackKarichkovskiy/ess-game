@@ -1,7 +1,8 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { select } from 'ng2-redux';
 import { CustomValidators } from 'ng2-validation';
+import { Observable } from 'rxjs/observable';
 
 import { GameConfig } from '../models/game-config';
 import { GameService } from '../services/game.service';
@@ -13,10 +14,10 @@ import { MatSlideToggleChange } from '@angular/material';
   templateUrl: './init-game-form.component.html',
   styleUrls: ['./init-game-form.component.scss']
 })
-export class InitGameFormComponent {
+export class InitGameFormComponent implements OnInit {
 
   gameConfig: GameConfig = new GameConfig();
-  @select('isRunning') gameIsRunning;
+  @select('isRunning') gameIsRunning: Observable<boolean>;
 
   randomSeedEnabled = false;
   gameDurationEnabled = false;
@@ -25,8 +26,12 @@ export class InitGameFormComponent {
 
   constructor(private cd: ChangeDetectorRef,
     private gameService: GameService,
-    fb: FormBuilder) {
-    this.buildFormValidation(fb);
+    private fb: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    this.buildFormValidation(this.fb);
+    this.controlGameSpeedDisability();
   }
 
   async goGame() {
@@ -83,8 +88,13 @@ export class InitGameFormComponent {
     return this.form.get('advSettingsGroup.gameDuration');
   }
 
+  get gameSpeed() {
+    return this.form.get('animationSpeed');
+  }
+
   private buildFormValidation(fb: FormBuilder) {
     this.form = fb.group({
+      // General Settings
       percentageGroup: fb.group({
         simpletonsPercent: fb.control('', [
           Validators.required,
@@ -99,6 +109,9 @@ export class InitGameFormComponent {
       }, {
           validator: PercentageValidators.cannotBeGtThanLimit
         }),
+      animationSpeed: fb.control(''),
+
+      // Adv Settings
       advSettingsGroup: fb.group({
         randomSeed: fb.control({
           value: '',
@@ -116,6 +129,13 @@ export class InitGameFormComponent {
             CustomValidators.digits
           ])
       })
+    });
+  }
+
+  private controlGameSpeedDisability() {
+    this.gameIsRunning.subscribe(gameIsRun => {
+      if (gameIsRun) this.gameSpeed.disable();
+      else this.gameSpeed.enable();
     });
   }
 }

@@ -22,6 +22,16 @@ $marginBetweenSettAndButtons: 15px;
     border-color: red;
 }
 
+.form-group{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px 15px 0px 15px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: lightgrey;
+}
+
 .form-group > * {
     width: 100%;
     @include margin-vert(10px);
