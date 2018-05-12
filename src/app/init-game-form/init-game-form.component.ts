@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { select } from 'ng2-redux';
 import { CustomValidators } from 'ng2-validation';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs';
 
 import { GameConfig } from '../models/game-config';
 import { GameService } from '../services/game.service';
