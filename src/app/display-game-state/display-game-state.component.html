@@ -1,9 +1,16 @@
 <div *ngIf="data; else noData"
-     style="display: block">
+     class="display-container">
         <canvas baseChart
                 [data]="data"
                 [labels]="chartLabels"
                 [chartType]="chartType"></canvas>
+
+        <mat-card>
+                <mat-card-content>
+                        <p>Game Progress: {{ gameProgress }}</p>
+                        <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
+                </mat-card-content>
+        </mat-card>
 </div>
 
 <ng-template #noData>You need to run game first...</ng-template>

@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, NgRedux } from 'ng2-redux';
+import { Observable } from 'rxjs'
 
 import { GameState } from '../models/game-state';
 import { Unsubscribe } from 'redux';
+import { GameService } from '../services/game.service';
+import { GameConfig } from '../models/game-config';
 
 @Component({
   selector: 'display-game-state',
@@ -14,10 +17,11 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   chartLabels = ['Simpletons', 'Knaves', 'Vindictives'];
   data: number[];
   chartType = 'pie';
+  step: number;
 
   unsubscribeFn: Unsubscribe;
 
-  constructor(private ngRedux: NgRedux<GameState>) {
+  constructor(private ngRedux: NgRedux<GameState>, private gameService: GameService) {
   }
 
   ngOnInit(): void {
@@ -28,10 +32,17 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
         state.statistic.knavesAmount,
         state.statistic.vindictiveAmount
       ];
+      this.step = state.step;
     });
   }
 
   ngOnDestroy(): void {
     this.unsubscribeFn();
+  }
+
+  get gameProgress() {
+    let gameDuration = this.gameService.getCurrentConfig().gameDuration;
+    let gameProgress = this.step / gameDuration * GameConfig.ONE_HUNDRED_PERCENT;
+    return Math.round(gameProgress);
   }
 }

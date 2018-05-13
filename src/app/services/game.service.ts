@@ -9,12 +9,16 @@ import { GameState } from '../models/game-state';
 @Injectable()
 export class GameService {
 
+  private static readonly LS_GAME_CONFIG_KEY = 'gameConfig';
+
   private endGameEmitter: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private ngRedux: NgRedux<GameState>) {
   }
 
   startGame(config: GameConfig): Promise<any> {
+    localStorage.setItem(GameService.LS_GAME_CONFIG_KEY, JSON.stringify(config));
+
     return this.prepareInit(config)
       .concat(this.prepareNextSteps(config))
       .concat(this.endGame())
@@ -30,6 +34,10 @@ export class GameService {
 
   stopGame() {
     this.endGameEmitter.emit(true);
+  }
+
+  getCurrentConfig(): GameConfig {
+    return new GameConfig(JSON.parse(localStorage.getItem(GameService.LS_GAME_CONFIG_KEY)));
   }
 
   private prepareInit(config: GameConfig): Observable<any> {
