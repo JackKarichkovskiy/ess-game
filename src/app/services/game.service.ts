@@ -13,6 +13,7 @@ export class GameService {
 
   private endGameEmitter: EventEmitter<boolean> = new EventEmitter();
 
+
   constructor(private ngRedux: NgRedux<GameState>) {
   }
 
@@ -51,7 +52,16 @@ export class GameService {
     let delay = config.animationSpeed;
     return Observable.timer(delay, delay)
       .takeUntil(this.endGameEmitter)
+      .takeWhile((value, index) => this.checkStopGameCondition())
       .take(config.gameDuration)
-      .forEach(i => this.ngRedux.dispatch({ type: NEXT_STEP }));
+      .forEach(value => this.nextStep(value));
+  }
+
+  private checkStopGameCondition(): boolean {
+    return this.ngRedux.getState().statistic.getTotal() > 0;
+  }
+
+  private nextStep(value) {
+    this.ngRedux.dispatch({ type: NEXT_STEP });
   }
 }

@@ -155,5 +155,5 @@ export function cloneState(state: GameState): GameState {
     for (let inhabitant of state.inhabitants)
         clonedInhabitants.push(inhabitant.clone());
 
-    return tassign(state, { statistic: tassign(state.statistic), inhabitants: clonedInhabitants });
+    return tassign(state, { statistic: state.statistic.clone(), inhabitants: clonedInhabitants });
 }

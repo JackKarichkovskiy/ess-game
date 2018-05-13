@@ -17,7 +17,12 @@ export class GameStatistic {
     getKnavesPart() {
         return this.knavesAmount / this.getTotal();
     }
+
     getVindictivePart() {
         return this.vindictiveAmount / this.getTotal();
+    }
+
+    clone(): GameStatistic {
+        return Object.assign(new GameStatistic(), this);
     }
 }

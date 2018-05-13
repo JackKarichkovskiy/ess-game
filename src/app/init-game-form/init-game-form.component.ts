@@ -35,7 +35,7 @@ export class InitGameFormComponent implements OnInit {
   }
 
   async goGame() {
-    await this.gameService.startGame(this.gameConfig);
+    await this.gameService.startGame(this.gameConfig).catch(async onrejected => await this.gameService.endGame());
   }
 
   stopGame() {
