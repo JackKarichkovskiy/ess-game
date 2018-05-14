@@ -6,3 +6,7 @@
 .display-container > * {
     padding: 10px;
 }
+
+#chartPanel {
+    height: 600px;
+}

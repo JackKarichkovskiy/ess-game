@@ -13,7 +13,6 @@ export class GameService {
 
   private endGameEmitter: EventEmitter<boolean> = new EventEmitter();
 
-
   constructor(private ngRedux: NgRedux<GameState>) {
   }
 

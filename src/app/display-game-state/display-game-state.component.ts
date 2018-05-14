@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { select, NgRedux } from 'ng2-redux';
-import { Observable } from 'rxjs'
-
-import { GameState } from '../models/game-state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgRedux } from 'ng2-redux';
 import { Unsubscribe } from 'redux';
-import { GameService } from '../services/game.service';
+
 import { GameConfig } from '../models/game-config';
+import { GameState } from '../models/game-state';
+import { GameService } from '../services/game.service';
 
 @Component({
   selector: 'display-game-state',
@@ -14,9 +13,15 @@ import { GameConfig } from '../models/game-config';
 })
 export class DisplayGameStateComponent implements OnInit, OnDestroy {
 
-  chartLabels = ['Simpletons', 'Knaves', 'Vindictives'];
-  data: number[];
-  chartType = 'pie';
+  percentageChartLabels = ['Simpletons', 'Knaves', 'Vindictives'];
+  percentageData: number[];
+
+  populationData: PopulationData[];
+  populationChartLabels: number[];
+  populationChartOptions = {
+    responsive: true
+  };
+
   step: number;
 
   unsubscribeFn: Unsubscribe;
@@ -27,14 +32,35 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.unsubscribeFn = this.ngRedux.subscribe(() => {
       let state = this.ngRedux.getState();
-      this.data = [
+      this.percentageData = [
         state.statistic.simpletonsAmount,
         state.statistic.knavesAmount,
         state.statistic.vindictiveAmount
       ];
       this.step = state.step;
+
+      if (this.step === 0) this.initPopulationChart();
+
+      this.populationChartLabels.push(this.step);
+
+      this.populationData = this.copyOfPopulationData();
+      this.populationData[0].data.push(state.statistic.simpletonsAmount);
+      this.populationData[1].data.push(state.statistic.knavesAmount);
+      this.populationData[2].data.push(state.statistic.vindictiveAmount);
     });
   }
+
+  private copyOfPopulationData(): PopulationData[] {
+    let copy = [];
+    for (let data of this.populationData)
+      copy.push({
+        data: Object.assign([], data.data),
+        label: data.label
+      });
+
+    return copy;
+  }
+
 
   ngOnDestroy(): void {
     this.unsubscribeFn();
@@ -45,4 +71,18 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
     let gameProgress = this.step / gameDuration * GameConfig.ONE_HUNDRED_PERCENT;
     return Math.round(gameProgress);
   }
+
+  private initPopulationChart() {
+    this.populationData = [
+      { data: [] as number[], label: 'Simpletons' },
+      { data: [] as number[], label: 'Knaves' },
+      { data: [] as number[], label: 'Vindictives' }
+    ];
+    this.populationChartLabels = [];
+  }
+}
+
+interface PopulationData {
+  data: number[],
+  label: string
 }
