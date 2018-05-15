@@ -7,6 +7,6 @@
     padding: 10px;
 }
 
-#chartPanel {
-    height: 600px;
+#displayPanel {
+    min-height: 500px;
 }

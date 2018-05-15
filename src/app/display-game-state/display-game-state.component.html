@@ -1,28 +1,30 @@
-<div *ngIf="percentageData; else noData"
-     class="display-container">
-        <mat-tab-group id="chartPanel">
-                <mat-tab label="Percentage Chart">
-                        <canvas baseChart
-                                [data]="percentageData"
-                                [labels]="percentageChartLabels"
-                                chartType="pie"></canvas>
-                </mat-tab>
-                <mat-tab label="Population Chart">
-                        <canvas baseChart
-                                [datasets]="populationData"
-                                [labels]="populationChartLabels"
-                                [options]="populationChartOptions"
-                                [legend]="true"
-                                chartType="line"></canvas>
-                </mat-tab>
-        </mat-tab-group>
+<div id="displayPanel">
+        <div *ngIf="percentageData; else noData"
+             class="display-container">
+                <mat-tab-group>
+                        <mat-tab label="Percentage Chart">
+                                <canvas baseChart
+                                        [data]="percentageData"
+                                        [labels]="percentageChartLabels"
+                                        chartType="pie"></canvas>
+                        </mat-tab>
+                        <mat-tab label="Population Chart">
+                                <canvas baseChart
+                                        [datasets]="populationData"
+                                        [labels]="populationChartLabels"
+                                        [options]="populationChartOptions"
+                                        [legend]="true"
+                                        chartType="line"></canvas>
+                        </mat-tab>
+                </mat-tab-group>
 
-        <mat-card>
-                <mat-card-content>
-                        <p>Game Progress: {{ gameProgress }}%</p>
-                        <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
-                </mat-card-content>
-        </mat-card>
+                <mat-card>
+                        <mat-card-content>
+                                <p>Game Progress: {{ gameProgress }}%</p>
+                                <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
+                        </mat-card-content>
+                </mat-card>
+        </div>
+
+        <ng-template #noData>You need to run game first...</ng-template>
 </div>
-
-<ng-template #noData>You need to run game first...</ng-template>

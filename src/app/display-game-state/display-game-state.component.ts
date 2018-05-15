@@ -5,6 +5,7 @@ import { Unsubscribe } from 'redux';
 import { GameConfig } from '../models/game-config';
 import { GameState } from '../models/game-state';
 import { GameService } from '../services/game.service';
+import { GameStatistic } from '../models/game-statistic';
 
 @Component({
   selector: 'display-game-state',
@@ -17,12 +18,13 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   percentageData: number[];
 
   populationData: PopulationData[];
-  populationChartLabels: number[];
+  populationChartLabels: number[] = [];
   populationChartOptions = {
     responsive: true
   };
 
   step: number;
+  gameDuration: number;
 
   unsubscribeFn: Unsubscribe;
 
@@ -32,35 +34,16 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.unsubscribeFn = this.ngRedux.subscribe(() => {
       let state = this.ngRedux.getState();
-      this.percentageData = [
-        state.statistic.simpletonsAmount,
-        state.statistic.knavesAmount,
-        state.statistic.vindictiveAmount
-      ];
+
+      if (this.step === state.step) return;
       this.step = state.step;
 
+      this.updatePercentageData(state.statistic);
+
       if (this.step === 0) this.initPopulationChart();
-
-      this.populationChartLabels.push(this.step);
-
-      this.populationData = this.copyOfPopulationData();
-      this.populationData[0].data.push(state.statistic.simpletonsAmount);
-      this.populationData[1].data.push(state.statistic.knavesAmount);
-      this.populationData[2].data.push(state.statistic.vindictiveAmount);
+      this.updatePopulationData(state.statistic);
     });
   }
-
-  private copyOfPopulationData(): PopulationData[] {
-    let copy = [];
-    for (let data of this.populationData)
-      copy.push({
-        data: Object.assign([], data.data),
-        label: data.label
-      });
-
-    return copy;
-  }
-
 
   ngOnDestroy(): void {
     this.unsubscribeFn();
@@ -72,13 +55,45 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
     return Math.round(gameProgress);
   }
 
+  private updatePercentageData(statistic: GameStatistic) {
+    this.percentageData = [
+      statistic.simpletonsAmount,
+      statistic.knavesAmount,
+      statistic.vindictiveAmount
+    ];
+  }
+
   private initPopulationChart() {
     this.populationData = [
       { data: [] as number[], label: 'Simpletons' },
       { data: [] as number[], label: 'Knaves' },
       { data: [] as number[], label: 'Vindictives' }
     ];
-    this.populationChartLabels = [];
+
+    this.populationChartLabels.splice(0, this.populationChartLabels.length);
+    let gameDuration = this.gameService.getCurrentConfig().gameDuration;
+    for (let i = 0; i < gameDuration; i++)
+      this.populationChartLabels.push(i);
+  }
+
+  private updatePopulationData(statistic: GameStatistic) {
+    let copy = this.copyOfPopulationData();  // for dynamic update
+    copy[0].data.push(statistic.simpletonsAmount);
+    copy[1].data.push(statistic.knavesAmount);
+    copy[2].data.push(statistic.vindictiveAmount);
+
+    this.populationData = copy;
+  }
+
+  private copyOfPopulationData(): PopulationData[] {
+    let copy = [];
+    for (let data of this.populationData)
+      copy.push({
+        data: Object.assign([], data.data),
+        label: data.label
+      });
+
+    return copy;
   }
 }
 
