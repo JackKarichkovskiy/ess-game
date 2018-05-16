@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameResultsComponent } from './game-results.component';
+import { MatComponentsModule } from '../material/mat-components.module';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { GameStatistic } from '../models/game-statistic';
 
 describe('GameResultsComponent', () => {
   let component: GameResultsComponent;
@@ -8,9 +11,13 @@ describe('GameResultsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameResultsComponent ]
+      imports: [MatComponentsModule],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: new GameStatistic()}
+      ],
+      declarations: [GameResultsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

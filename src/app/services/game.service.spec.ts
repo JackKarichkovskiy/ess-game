@@ -1,12 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { GameService } from './game.service';
 import { NgReduxModule } from 'ng2-redux';
+import { MatDialogModule } from '@angular/material';
 
 
-describe('GameServiceService', () => {
+describe('GameService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NgReduxModule],
+      imports: [NgReduxModule, MatDialogModule],
       providers: [GameService]
     });
   });
