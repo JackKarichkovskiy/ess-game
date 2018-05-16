@@ -8,6 +8,7 @@ import { GameConfig } from '../models/game-config';
 import { GameService } from '../services/game.service';
 import { PercentageValidators } from './percentage.validators';
 import { MatSlideToggleChange } from '@angular/material';
+import { GameStatistic } from '../models/game-statistic';
 
 @Component({
   selector: 'init-game-form',

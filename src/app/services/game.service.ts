@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Rx';
 import { END_GAME, INIT_STATE, NEXT_STEP } from '../models/actions';
 import { GameConfig } from '../models/game-config';
 import { GameState } from '../models/game-state';
+import { GameStatistic } from '../models/game-statistic';
+import { MatDialog } from '@angular/material';
+import { GameResultsComponent } from '../game-results/game-results.component';
 
 @Injectable()
 export class GameService {
@@ -13,7 +16,7 @@ export class GameService {
 
   private endGameEmitter: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private ngRedux: NgRedux<GameState>) {
+  constructor(private ngRedux: NgRedux<GameState>, private dialog: MatDialog) {
   }
 
   startGame(config: GameConfig): Promise<any> {
@@ -28,6 +31,7 @@ export class GameService {
   endGame(): Observable<any> {
     return new Observable(observer => {
       this.ngRedux.dispatch({ type: END_GAME });
+      this.showResultsDialog(this.ngRedux.getState().statistic);
       observer.complete();
     });
   }
@@ -62,5 +66,11 @@ export class GameService {
 
   private nextStep(value) {
     this.ngRedux.dispatch({ type: NEXT_STEP });
+  }
+
+  private showResultsDialog(statistic: GameStatistic) {
+    this.dialog.open(GameResultsComponent, {
+      data: statistic
+    });
   }
 }

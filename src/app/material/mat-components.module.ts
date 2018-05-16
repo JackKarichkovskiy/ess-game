@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -23,7 +26,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSliderModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
+    MatListModule
   ]
 })
 export class MatComponentsModule { }

@@ -12,13 +12,18 @@ import { MatComponentsModule } from './material/mat-components.module';
 import { rootReducer } from './models/actions';
 import { GameState, INITIAL_STATE } from './models/game-state';
 import { GameService } from './services/game.service';
+import { GameResultsComponent } from './game-results/game-results.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     InitGameFormComponent,
-    DisplayGameStateComponent
+    DisplayGameStateComponent,
+    GameResultsComponent
+  ],
+  entryComponents: [
+    GameResultsComponent
   ],
   imports: [
     BrowserModule,

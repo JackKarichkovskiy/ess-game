@@ -6,6 +6,10 @@ export class GameStatistic {
     knavesAmount = 0;
     vindictiveAmount = 0;
 
+    constructor(initConfig?) {
+        Object.assign(this, initConfig);
+    }
+
     getTotal() {
         return this.simpletonsAmount + this.knavesAmount + this.vindictiveAmount;
     }
