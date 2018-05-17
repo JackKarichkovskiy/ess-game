@@ -1,0 +1,8 @@
+{
+  "COMMON":{
+    "SELECT_LANG": "Выберите язык"
+  },
+  "DISPLAY_PANEL": {
+    "GAME_START_FIRST": "Сначала нужно запустить игру..."
+  }
+}

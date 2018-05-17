@@ -1,0 +1,10 @@
+<mat-form-field class="local-select">
+  <mat-select #langSelect
+              (selectionChange)="onSelectChange(langSelect.value)"
+              [value]="translate.currentLang">
+    <mat-option *ngFor="let lang of translate.getLangs()"
+                [value]="lang">
+      {{ lang }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

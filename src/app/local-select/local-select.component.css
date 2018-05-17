@@ -1,0 +1,7 @@
+.local-select {
+    width: 50px;
+}
+
+::ng-deep .local-select * {
+    color: white;
+}

@@ -1,0 +1,8 @@
+{
+    "COMMON": {
+        "SELECT_LANG": "Select language"
+    },
+    "DISPLAY_PANEL": {
+        "GAME_START_FIRST": "You need to run game first..."
+    }
+}
