@@ -4,6 +4,9 @@ import { GameResultsComponent } from './game-results.component';
 import { MatComponentsModule } from '../material/mat-components.module';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { GameStatistic } from '../models/game-statistic';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
 
 describe('GameResultsComponent', () => {
   let component: GameResultsComponent;
@@ -11,9 +14,19 @@ describe('GameResultsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatComponentsModule],
+      imports: [
+        MatComponentsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        })
+      ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: new GameStatistic()}
+        { provide: MAT_DIALOG_DATA, useValue: new GameStatistic() }
       ],
       declarations: [GameResultsComponent]
     })
