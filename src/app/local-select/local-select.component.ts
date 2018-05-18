@@ -10,16 +10,20 @@ import { AppComponent } from '../app.component';
 })
 export class LocalSelectComponent implements OnInit {
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
   }
 
   onSelectChange(newLang: string) {
-    this.translate.use(newLang);
+    this.translateService.use(newLang);
   }
 
   get langs(){
     return AppComponent.DEFAULT_SUPPORTED_LANGS;
+  }
+
+  get currentLang() {
+    return this.translateService.currentLang;
   }
 }
