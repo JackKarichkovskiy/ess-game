@@ -1,5 +1,9 @@
 .local-select {
-    width: 50px;
+    width: 100px;
+}
+
+img {
+    vertical-align: middle;
 }
 
 ::ng-deep .local-select * {

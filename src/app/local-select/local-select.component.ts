@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'local-select',
@@ -9,19 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class LocalSelectComponent implements OnInit {
 
-  placeholder$: Observable<string>;
-
   constructor(private translate: TranslateService) { }
 
   ngOnInit() {
-    this.localization();
   }
 
   onSelectChange(newLang: string) {
     this.translate.use(newLang);
   }
 
-  private localization() {
-    this.placeholder$ = this.translate.get('COMMON.SELECT_LANG');
+  get langs(){
+    return AppComponent.DEFAULT_SUPPORTED_LANGS;
   }
 }

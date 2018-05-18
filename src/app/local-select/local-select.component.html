@@ -2,9 +2,9 @@
   <mat-select #langSelect
               (selectionChange)="onSelectChange(langSelect.value)"
               [value]="translate.currentLang">
-    <mat-option *ngFor="let lang of translate.getLangs()"
-                [value]="lang">
-      {{ lang }}
+    <mat-option *ngFor="let lang of langs"
+                [value]="lang.name">
+      {{ lang.bundleKey | translate }} <img [src]="lang.iconPath">
     </mat-option>
   </mat-select>
 </mat-form-field>

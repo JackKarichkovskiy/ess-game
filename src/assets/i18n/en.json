@@ -2,6 +2,10 @@
     "COMMON": {
         "SELECT_LANG": "Select language"
     },
+    "LANG": {
+        "EN": "English",
+        "RU": "Russian"
+    },
     "INIT_FORM": {
         "GEN_SETTINGS": "General game settings",
         "ADV_SETTINGS": "Advanced game settings",
@@ -35,10 +39,10 @@
         "VINDICTIVES_LABEL": "Vindictives"
     },
     "GAME_RESULTS": {
-      "TITLE": "Game Results",
-      "EXTINCTION_MSG": "Total inhabitansts extinction",
-      "SIMPLETONS_PERCENT": "Simpletons percent",
-      "KNAVES_PERCENT": "Knaves percent",
-      "VINDICTIVE_PERCENT": "Vindictive percent"
+        "TITLE": "Game Results",
+        "EXTINCTION_MSG": "Total inhabitansts extinction",
+        "SIMPLETONS_PERCENT": "Simpletons percent",
+        "KNAVES_PERCENT": "Knaves percent",
+        "VINDICTIVE_PERCENT": "Vindictive percent"
     }
 }
