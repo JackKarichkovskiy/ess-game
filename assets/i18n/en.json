@@ -1,0 +1,48 @@
+{
+    "COMMON": {
+        "SELECT_LANG": "Select language"
+    },
+    "LANG": {
+        "EN": "English",
+        "RU": "Russian"
+    },
+    "INIT_FORM": {
+        "GEN_SETTINGS": "General game settings",
+        "ADV_SETTINGS": "Advanced game settings",
+        "SIMPLETONS_PER_PLACEHOLDER": "Percentage of simpletons",
+        "KNAVES_PER_PLACEHOLDER": "Percentage of knaves",
+        "VINDICTIVE_PER_PLACEHOLDER": "Percentage of vindictive",
+        "PERCENTAGE_REQUIRED_ERROR": "The percentage is required.",
+        "PERCENTAGE_RANGE_ERROR": "The percent needs to be between 0 and 100.",
+        "PERCENTAGE_DIGITS_ERROR": "The percentage needs to be integer, not decimal.",
+        "PERCENTAGE_GT_LIMIT_ERROR": "The sum of simpletons percent and knaves percent cannot be greater than {{ limit }}.",
+        "GAME_SPEED_LABEL": "Game Speed",
+        "CONFIG_RANDOM_SEED": "Config random seed",
+        "RANDOM_SEED_PLACEHOLDER": "Random Seed",
+        "RANDOM_SEED_REQUIRED_ERROR": "The random seed is required.",
+        "RANDOM_SEED_DIGITS_ERROR": "The random seed needs to be integer, not decimal.",
+        "CONFIG_GAME_DURATION": "Config game duration",
+        "GAME_DURATION_PLACEHOLDER": "Game duration",
+        "GAME_DUR_REQUIRED_ERROR": "The game duration is required.",
+        "GAME_DUR_POSITIVE_ERROR": "The game duration needs to be positive.",
+        "GAME_DUR_DIGITS_ERROR": "The game duration needs to be integer, not decimal.",
+        "START_BTN": "Start!",
+        "STOP_BTN": "Stop"
+    },
+    "DISPLAY_PANEL": {
+        "GAME_START_FIRST": "You need to run game first...",
+        "PERCENTAGE_CHART": "Percentage Chart",
+        "POPULATION_CHART": "Population Chart",
+        "GAME_PROGRESS": "Game Progress",
+        "SIMPLETONS_LABEL": "Simpletons",
+        "KNAVES_LABEL": "Knaves",
+        "VINDICTIVES_LABEL": "Vindictives"
+    },
+    "GAME_RESULTS": {
+        "TITLE": "Game Results",
+        "EXTINCTION_MSG": "Total inhabitansts extinction",
+        "SIMPLETONS_PERCENT": "Simpletons percent",
+        "KNAVES_PERCENT": "Knaves percent",
+        "VINDICTIVE_PERCENT": "Vindictive percent"
+    }
+}
