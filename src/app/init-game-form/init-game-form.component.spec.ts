@@ -6,6 +6,9 @@ import { CustomFormsModule } from 'ng2-validation';
 import { GameService } from '../services/game.service';
 import { MatComponentsModule } from '../material/mat-components.module';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
 
 describe('InitGameFormComponent', () => {
   let component: InitGameFormComponent;
@@ -20,7 +23,15 @@ describe('InitGameFormComponent', () => {
         MatComponentsModule,
         CustomFormsModule,
         ReactiveFormsModule,
-        NgReduxModule
+        NgReduxModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        })
       ],
       declarations: [InitGameFormComponent],
       providers: [GameService]

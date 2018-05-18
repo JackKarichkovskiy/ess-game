@@ -2,14 +2,14 @@
         <div *ngIf="percentageData; else noData"
              class="display-container">
                 <mat-tab-group>
-                        <mat-tab label="Percentage Chart">
+                        <mat-tab [label]="'DISPLAY_PANEL.PERCENTAGE_CHART' | translate">
                                 <canvas baseChart
                                         height="130"
                                         [data]="percentageData"
                                         [labels]="percentageChartLabels"
                                         chartType="pie"></canvas>
                         </mat-tab>
-                        <mat-tab label="Population Chart">
+                        <mat-tab [label]="'DISPLAY_PANEL.POPULATION_CHART' | translate">
                                 <canvas baseChart
                                         height="130"
                                         [datasets]="populationData"
@@ -22,7 +22,7 @@
 
                 <mat-card>
                         <mat-card-content>
-                                <p>Game Progress: {{ gameProgress }}%</p>
+                                <p>{{ 'DISPLAY_PANEL.GAME_PROGRESS' | translate }}: {{ gameProgress }}%</p>
                                 <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
                         </mat-card-content>
                 </mat-card>

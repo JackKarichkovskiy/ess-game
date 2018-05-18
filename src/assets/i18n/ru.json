@@ -1,8 +1,44 @@
 {
-  "COMMON":{
+  "COMMON": {
     "SELECT_LANG": "Выберите язык"
   },
+  "INIT_FORM": {
+    "GEN_SETTINGS": "Общие настройки",
+    "ADV_SETTINGS": "Дополнительные настройки",
+    "SIMPLETONS_PER_PLACEHOLDER": "Процент Простаков",
+    "KNAVES_PER_PLACEHOLDER": "Процент Плутов",
+    "VINDICTIVE_PER_PLACEHOLDER": "Процент Мстительных",
+    "PERCENTAGE_REQUIRED_ERROR": "Процент обязателен.",
+    "PERCENTAGE_RANGE_ERROR": "Процент должен быть между 0 и 100.",
+    "PERCENTAGE_DIGITS_ERROR": "Процент должен быть целым числом.",
+    "PERCENTAGE_GT_LIMIT_ERROR": "Сумма процентов Простаков и Плутов не должна превышать {{ limit }}.",
+    "GAME_SPEED_LABEL": "Скорость игры",
+    "CONFIG_RANDOM_SEED": "Настроить 'зерно' случайности",
+    "RANDOM_SEED_PLACEHOLDER": "Зерно",
+    "RANDOM_SEED_REQUIRED_ERROR": "Зерно обязательно.",
+    "RANDOM_SEED_DIGITS_ERROR": "Зерно должно быть целым числом.",
+    "CONFIG_GAME_DURATION": "Настроить длительность игры",
+    "GAME_DURATION_PLACEHOLDER": "Длительность игры",
+    "GAME_DUR_REQUIRED_ERROR": "Длительность игры обязательна.",
+    "GAME_DUR_POSITIVE_ERROR": "Длительность игры должна быть положительным числом.",
+    "GAME_DUR_DIGITS_ERROR": "Длительность игры должна быть целым числом.",
+    "START_BTN": "Старт!",
+    "STOP_BTN": "Стоп"
+  },
   "DISPLAY_PANEL": {
-    "GAME_START_FIRST": "Сначала нужно запустить игру..."
+    "GAME_START_FIRST": "Сначала нужно запустить игру...",
+    "PERCENTAGE_CHART": "Диаграмма популяции",
+    "POPULATION_CHART": "График популяции",
+    "GAME_PROGRESS": "Игровой прогресс",
+    "SIMPLETONS_LABEL": "Простаки",
+    "KNAVES_LABEL": "Плуты",
+    "VINDICTIVES_LABEL": "Злопамятные"
+  },
+  "GAME_RESULTS": {
+    "TITLE": "Результат игры",
+    "EXTINCTION_MSG": "Полное вымирание вида",
+    "SIMPLETONS_PERCENT": "Процент Простаков",
+    "KNAVES_PERCENT": "Процент Плутов",
+    "VINDICTIVE_PERCENT": "Процент Мстительных"
   }
 }

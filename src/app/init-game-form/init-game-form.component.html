@@ -8,7 +8,7 @@
                                  expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        General game settings
+                        {{ 'INIT_FORM.GEN_SETTINGS' | translate }}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
 
@@ -20,11 +20,11 @@
                                [(ngModel)]="gameConfig.simpletonsPercent"
                                name="simpletonsPercent"
                                matInput
-                               placeholder="Percentage of simpletons">
+                               [placeholder]="'INIT_FORM.SIMPLETONS_PER_PLACEHOLDER' | translate">
                         <span matSuffix>%</span>
-                        <mat-error *ngIf="sPer.errors?.required">The percentage is required.</mat-error>
-                        <mat-error *ngIf="sPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-                        <mat-error *ngIf="sPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+                        <mat-error *ngIf="sPer.errors?.required">{{ 'INIT_FORM.PERCENTAGE_REQUIRED_ERROR' | translate }}</mat-error>
+                        <mat-error *ngIf="sPer.errors?.range">{{ 'INIT_FORM.PERCENTAGE_RANGE_ERROR' | translate }}</mat-error>
+                        <mat-error *ngIf="sPer.errors?.digits">{{ 'INIT_FORM.PERCENTAGE_DIGITS_ERROR' | translate }}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <input type="number"
@@ -32,29 +32,31 @@
                                [(ngModel)]="gameConfig.knavesPercent"
                                name="knavesPercent"
                                matInput
-                               placeholder="Percentage of knaves">
+                               [placeholder]="'INIT_FORM.KNAVES_PER_PLACEHOLDER' | translate">
                         <span matSuffix>%</span>
-                        <mat-error *ngIf="kPer.errors?.required">The percentage is required.</mat-error>
-                        <mat-error *ngIf="kPer.errors?.range">The percent needs to be between 0 and 100.</mat-error>
-                        <mat-error *ngIf="kPer.errors?.digits">Percentage needs to be integer, not decimal.</mat-error>
+                        <mat-error *ngIf="kPer.errors?.required">{{ 'INIT_FORM.PERCENTAGE_REQUIRED_ERROR' | translate }}</mat-error>
+                        <mat-error *ngIf="kPer.errors?.range">{{ 'INIT_FORM.PERCENTAGE_RANGE_ERROR' | translate }}</mat-error>
+                        <mat-error *ngIf="kPer.errors?.digits">{{ 'INIT_FORM.PERCENTAGE_DIGITS_ERROR' | translate }}</mat-error>
                     </mat-form-field>
 
-                    <mat-error *ngIf="perGroup.errors?.cannotBeGtThanLimit">
-                        The sum of simpletons percent and knaves percent cannot be greater than {{ perGroup.errors?.cannotBeGtThanLimit.limit }}.
+                    <mat-error *ngIf="perGroup.errors?.cannotBeGtThanLimit"
+                               translate
+                               [translateParams]="{limit: perGroup.errors?.cannotBeGtThanLimit.limit}">
+                        INIT_FORM.PERCENTAGE_GT_LIMIT_ERROR
                     </mat-error>
 
                     <mat-form-field>
                         <input type="number"
                                matInput
                                disabled="true"
-                               placeholder="Percentage of vindictive"
+                               [placeholder]="'INIT_FORM.VINDICTIVE_PER_PLACEHOLDER' | translate"
                                [value]="gameConfig.getVindictivePercent()">
                         <span matSuffix>%</span>
                     </mat-form-field>
                 </div>
 
                 <div class="form-group">
-                    <label for="gameSpeed">Game Speed</label>
+                    <label for="gameSpeed">{{ 'INIT_FORM.GAME_SPEED_LABEL' | translate }}</label>
                     <mat-slider id="gameSpeed"
                                 formControlName="animationSpeed"
                                 min="100"
@@ -67,7 +69,7 @@
             <mat-expansion-panel [class.invalidPanel]="f.submitted && advSettGroup.invalid">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        Advanced game settings
+                        {{ 'INIT_FORM.ADV_SETTINGS' | translate }}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
 
@@ -76,7 +78,7 @@
                     <div class="adv-sett-field-group">
                         <mat-slide-toggle [checked]="randomSeedEnabled"
                                           (change)="randomSeedChanged($event)">
-                            Config random seed
+                            {{ 'INIT_FORM.CONFIG_RANDOM_SEED' | translate }}
                         </mat-slide-toggle>
                         <mat-form-field *ngIf="randomSeedEnabled"
                                         class="form-field">
@@ -84,16 +86,16 @@
                                    matInput
                                    formControlName="randomSeed"
                                    name="randomSeed"
-                                   placeholder="Random Seed"
+                                   [placeholder]="'INIT_FORM.RANDOM_SEED_PLACEHOLDER' | translate"
                                    [(ngModel)]="gameConfig.randomSeed">
-                            <mat-error *ngIf="ranSeed.errors?.required">The random seed is required.</mat-error>
-                            <mat-error *ngIf="ranSeed.errors?.digits">The random seed needs to be integer, not decimal.</mat-error>
+                            <mat-error *ngIf="ranSeed.errors?.required">{{ 'INIT_FORM.RANDOM_SEED_REQUIRED_ERROR' | translate }}</mat-error>
+                            <mat-error *ngIf="ranSeed.errors?.digits">{{ 'INIT_FORM.RANDOM_SEED_DIGITS_ERROR' | translate }}</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="adv-sett-field-group">
                         <mat-slide-toggle [checked]="gameDurationEnabled"
                                           (change)="gameDurationChanged($event)">
-                            Config game duration
+                            {{ 'INIT_FORM.CONFIG_GAME_DURATION' | translate }}
                         </mat-slide-toggle>
                         <mat-form-field *ngIf="gameDurationEnabled"
                                         class="form-field">
@@ -101,11 +103,11 @@
                                    matInput
                                    formControlName="gameDuration"
                                    name="gameDuration"
-                                   placeholder="Game Duration"
+                                   [placeholder]="'INIT_FORM.GAME_DURATION_PLACEHOLDER' | translate"
                                    [(ngModel)]="gameConfig.gameDuration">
-                            <mat-error *ngIf="gameDur.errors?.required">The game duration is required.</mat-error>
-                            <mat-error *ngIf="gameDur.errors?.gt">The game duration needs to be positive.</mat-error>
-                            <mat-error *ngIf="gameDur.errors?.digits">The game duration needs to be integer, not decimal.</mat-error>
+                            <mat-error *ngIf="gameDur.errors?.required">{{ 'INIT_FORM.GAME_DUR_REQUIRED_ERROR' | translate }}</mat-error>
+                            <mat-error *ngIf="gameDur.errors?.gt">{{ 'INIT_FORM.GAME_DUR_POSITIVE_ERROR' | translate }}</mat-error>
+                            <mat-error *ngIf="gameDur.errors?.digits">{{ 'INIT_FORM.GAME_DUR_DIGITS_ERROR' | translate }}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -116,11 +118,11 @@
     <div class="buttons">
         <button mat-raised-button
                 color="primary"
-                [disabled]="f.invalid || (gameIsRunning | async)">Go!</button>
+                [disabled]="f.invalid || (gameIsRunning | async)">{{ 'INIT_FORM.START_BTN' | translate }}</button>
         <button mat-raised-button
                 type="button"
                 color="accent"
                 [disabled]="!(gameIsRunning | async)"
-                (click)="stopGame()">Stop</button>
+                (click)="stopGame()">{{ 'INIT_FORM.STOP_BTN' | translate }}</button>
     </div>
 </form>

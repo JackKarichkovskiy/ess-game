@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Unsubscribe } from 'redux';
+import { Observable, Subscription } from 'rxjs';
 
 import { GameConfig } from '../models/game-config';
 import { GameState } from '../models/game-state';
 import { GameService } from '../services/game.service';
 import { GameStatistic } from '../models/game-statistic';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'display-game-state',
@@ -14,10 +16,14 @@ import { GameStatistic } from '../models/game-statistic';
 })
 export class DisplayGameStateComponent implements OnInit, OnDestroy {
 
-  percentageChartLabels = ['Simpletons', 'Knaves', 'Vindictives'];
+  private simpletonsLabel: string;
+  private knavesLabel: string;
+  private vindictiveLabel: string;
+
+  percentageChartLabels = new Array<string>(3);
   percentageData: number[];
 
-  populationData: PopulationData[];
+  populationData: PopulationData[] = [];
   populationChartLabels: number[] = [];
   populationChartOptions = {
     responsive: true
@@ -26,13 +32,36 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   step: number;
   gameDuration: number;
 
-  unsubscribeFn: Unsubscribe;
+  unsubscribeReduxFn: Unsubscribe;
+  simpletonsTranslateSub: Subscription;
+  knavesTranslateSub: Subscription;
+  vindictiveTranslateSub: Subscription;
 
-  constructor(private ngRedux: NgRedux<GameState>, private gameService: GameService) {
+  constructor(private translate: TranslateService,
+    private ngRedux: NgRedux<GameState>,
+    private gameService: GameService) {
   }
 
   ngOnInit(): void {
-    this.unsubscribeFn = this.ngRedux.subscribe(() => {
+    this.reduxUpdateData();
+    this.translateSetup();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeReduxFn();
+    this.simpletonsTranslateSub.unsubscribe();
+    this.knavesTranslateSub.unsubscribe();
+    this.vindictiveTranslateSub.unsubscribe();
+  }
+
+  get gameProgress() {
+    let gameDuration = this.gameService.getCurrentConfig().gameDuration;
+    let gameProgress = this.step / gameDuration * GameConfig.ONE_HUNDRED_PERCENT;
+    return Math.round(gameProgress);
+  }
+
+  private reduxUpdateData() {
+    this.unsubscribeReduxFn = this.ngRedux.subscribe(() => {
       let state = this.ngRedux.getState();
 
       if (this.step === state.step) return;
@@ -45,14 +74,22 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribeFn();
-  }
-
-  get gameProgress() {
-    let gameDuration = this.gameService.getCurrentConfig().gameDuration;
-    let gameProgress = this.step / gameDuration * GameConfig.ONE_HUNDRED_PERCENT;
-    return Math.round(gameProgress);
+  private translateSetup() {
+    this.simpletonsTranslateSub = this.translate.stream('DISPLAY_PANEL.SIMPLETONS_LABEL').subscribe((res: string) => {
+      this.simpletonsLabel = res;
+      this.percentageChartLabels[0] = this.simpletonsLabel;
+      if (this.populationData[0]) this.populationData[0].label = this.simpletonsLabel;
+    });
+    this.knavesTranslateSub = this.translate.stream('DISPLAY_PANEL.KNAVES_LABEL').subscribe((res: string) => {
+      this.knavesLabel = res;
+      this.percentageChartLabels[1] = this.knavesLabel;
+      if (this.populationData[1]) this.populationData[1].label = this.knavesLabel;
+    });
+    this.vindictiveTranslateSub = this.translate.stream('DISPLAY_PANEL.VINDICTIVES_LABEL').subscribe((res: string) => {
+      this.vindictiveLabel = res;
+      this.percentageChartLabels[2] = this.vindictiveLabel;
+      if (this.populationData[2]) this.populationData[2].label = this.vindictiveLabel;
+    });
   }
 
   private updatePercentageData(statistic: GameStatistic) {
@@ -65,9 +102,9 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
 
   private initPopulationChart() {
     this.populationData = [
-      { data: [] as number[], label: 'Simpletons' },
-      { data: [] as number[], label: 'Knaves' },
-      { data: [] as number[], label: 'Vindictives' }
+      { data: [] as number[], label: this.simpletonsLabel },
+      { data: [] as number[], label: this.knavesLabel },
+      { data: [] as number[], label: this.vindictiveLabel }
     ];
 
     this.populationChartLabels.splice(0, this.populationChartLabels.length);

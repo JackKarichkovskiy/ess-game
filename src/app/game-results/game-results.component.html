@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Game Results</h2>
+<h2 mat-dialog-title>{{ 'GAME_RESULTS.TITLE' | translate }}</h2>
 
 <mat-dialog-content>
   <div *ngIf="data.getTotal() === 0; else results">
     <p>
-      Total inhabitansts extinction
+      {{ 'GAME_RESULTS.EXTINCTION_MSG' | translate }}
       <mat-icon id="logoImage">mood_bad</mat-icon>
     </p>
   </div>
@@ -12,19 +12,19 @@
     <mat-list>
       <mat-list-item>
         <span>
-          Simpletons percent:
+          {{ 'GAME_RESULTS.SIMPLETONS_PERCENT' | translate }}:
           <b>{{ data.getSimpletonsPart() | percent:'1.0-2' }}</b>
         </span>
       </mat-list-item>
       <mat-list-item>
         <span>
-          Knaves percent:
+          {{ 'GAME_RESULTS.KNAVES_PERCENT' | translate }}:
           <b>{{ data.getKnavesPart() | percent:'1.0-2' }}</b>
         </span>
       </mat-list-item>
       <mat-list-item>
         <span>
-          Vindictive percent:
+          {{ 'GAME_RESULTS.VINDICTIVE_PERCENT' | translate }}:
           <b>{{ data.getVindictivePart() | percent:'1.0-2' }}</b>
         </span>
       </mat-list-item>
