@@ -12,14 +12,14 @@ export class AppComponent {
   private static readonly DEFAULT_LANG: Language = {
     name: 'en',
     bundleKey: 'LANG.EN',
-    iconPath: '/assets/images/flag-united-kingdom.png'
+    iconPath: 'assets/images/flag-united-kingdom.png'
   };
   static readonly DEFAULT_SUPPORTED_LANGS = [
     AppComponent.DEFAULT_LANG,
     {
       name: 'ru',
       bundleKey: 'LANG.RU',
-      iconPath: '/assets/images/flag-russia.png'
+      iconPath: 'assets/images/flag-russia.png'
     }
   ];
 
