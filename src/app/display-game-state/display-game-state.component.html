@@ -4,14 +4,14 @@
                 <mat-tab-group>
                         <mat-tab [label]="'DISPLAY_PANEL.PERCENTAGE_CHART' | translate">
                                 <canvas baseChart
-                                        height="130"
+                                        height="100"
                                         [data]="percentageData"
                                         [labels]="percentageChartLabels"
                                         chartType="pie"></canvas>
                         </mat-tab>
                         <mat-tab [label]="'DISPLAY_PANEL.POPULATION_CHART' | translate">
                                 <canvas baseChart
-                                        height="130"
+                                        height="100"
                                         [datasets]="populationData"
                                         [labels]="populationChartLabels"
                                         [options]="populationChartOptions"

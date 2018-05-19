@@ -6,7 +6,3 @@
 .display-container > * {
     padding: 10px;
 }
-
-#displayPanel {
-    min-height: 550px;
-}

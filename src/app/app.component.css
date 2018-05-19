@@ -11,10 +11,32 @@
     flex: 1 1 auto;
 }
 
-#logoImage {
-    padding-right: 5px;
+#logoTitle {
+    margin-left: 8px;
 }
 
-#logoTitle {
-    padding-left: 5px;
-}
+.app-container {
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  /* Clear floats after the columns */
+  .app-container:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Create two unequal columns that floats next to each other */
+  .column {
+    margin: 10px;
+    min-height: 650px;
+  }
+
+  .init-form-container {
+      width: 30%;
+  }
