@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from './models/lang';
+import { MatDialog } from '@angular/material';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +25,14 @@ export class AppComponent {
     }
   ];
 
-  constructor(translate: TranslateService) {
+  initFormPanelOpened = true;
+
+  constructor(private dialog: MatDialog, translate: TranslateService) {
     this.translateConfig(translate);
+  }
+
+  openTutorial() {
+    this.dialog.open(TutorialComponent);
   }
 
   private translateConfig(translate: TranslateService) {

@@ -40,3 +40,8 @@
   .init-form-container {
       width: 30%;
   }
+
+  .right-toolbar-group > * {
+      margin-right: 5px;
+      margin-left: 5px;
+  }

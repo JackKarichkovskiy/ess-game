@@ -2,15 +2,20 @@
              class="toolbar">
     <button mat-icon-button
             (click)="initForm.toggle()">
-        <mat-icon *ngIf="initForm.opened">arrow_back_ios</mat-icon>
-        <mat-icon *ngIf="!initForm.opened">arrow_forward_ios</mat-icon>
+        <mat-icon *ngIf="initFormPanelOpened">arrow_back_ios</mat-icon>
+        <mat-icon *ngIf="!initFormPanelOpened">arrow_forward_ios</mat-icon>
     </button>
     <h1 id="logoTitle">ESS Game</h1>
 
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
 
-    <span>
+
+    <span class="right-toolbar-group">
+        <button mat-button
+                (click)="openTutorial()">
+            Tutorial
+        </button>
         <local-select></local-select>
     </span>
 </mat-toolbar>
@@ -18,7 +23,7 @@
 <mat-sidenav-container class="app-container">
     <mat-sidenav #initForm
                  mode="side"
-                 opened="true"
+                 [(opened)]="initFormPanelOpened"
                  class="init-form-container">
         <mat-card class="column"
                   style="background-color:rgb(235, 198, 198);">

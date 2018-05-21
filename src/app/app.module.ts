@@ -17,6 +17,7 @@ import { rootReducer } from './models/actions';
 import { GameState, INITIAL_STATE } from './models/game-state';
 import { GameService } from './services/game.service';
 import { LocalSelectComponent } from './local-select/local-select.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 
 @NgModule({
@@ -25,10 +26,12 @@ import { LocalSelectComponent } from './local-select/local-select.component';
     InitGameFormComponent,
     DisplayGameStateComponent,
     GameResultsComponent,
-    LocalSelectComponent
+    LocalSelectComponent,
+    TutorialComponent
   ],
   entryComponents: [
-    GameResultsComponent
+    GameResultsComponent,
+    TutorialComponent
   ],
   imports: [
     BrowserModule,
