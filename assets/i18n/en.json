@@ -44,5 +44,23 @@
         "SIMPLETONS_PERCENT": "Simpletons percent",
         "KNAVES_PERCENT": "Knaves percent",
         "VINDICTIVE_PERCENT": "Vindictive percent"
+    },
+    "TUTORIAL": {
+        "TITLE": "Tutorial",
+        "NEXT": "Next",
+        "BACK": "Back",
+        "DONE": "Done",
+        "DESC_STEP_TITLE": "Description",
+        "DESC_STEP_CONTENT": "ESS (Evolutionary Stable Strategy) Game - is the game-simulation that helps you to model and observe interaction between three inhabitant groups (Simpletons, Knaves and Vindictive). Every group has its own behaviour.",
+        "START_STEP_TITLE": "Run Game",
+        "START_STEP_CONTENT": "To run simulation you need to adjust start percentage of each group (it will change during the game). Additionally, you can adjust additional configurations, such as, game speed, random seed, game duration. After that you should run the simulation pressing 'Start!' button.",
+        "PROCESS_STEP_TITLE": "Game Process",
+        "PROCESS_STEP_DESC": "Game goes step by step. During each game iteration every inhabitant asks help another inhabitant. If he gets help he is 'Healthy', otherwise - he 'Wounded'. After two consequent wounds inhabitant dies. Every fifth game step called 'Generation step', because it simulates reproduction moment, in other words, every group amount increases on 50%.",
+        "PROCESS_STEP_GROUPS": "There are 3 groups of inhabitants and 3 behaviours.",
+        "PROCESS_STEP_SIMPLETONS": "Simpletons - always help",
+        "PROCESS_STEP_KNAVES": "Knaves - never help",
+        "PROCESS_STEP_VINDICTIVE": "Vindictive - don't help if other inhabitant hadn't help him earlier, otherwise - helps",
+        "CONCLUSION_STEP_TITLE": "Conclusion",
+        "CONCLUSION_STEP_CONTENT": "Have fun!"
     }
 }
