@@ -32,6 +32,7 @@ export class GameService {
     return new Observable(observer => {
       this.ngRedux.dispatch({ type: END_GAME });
       this.showResultsDialog(this.ngRedux.getState().statistic);
+      localStorage.removeItem(GameService.LS_GAME_CONFIG_KEY);
       observer.complete();
     });
   }

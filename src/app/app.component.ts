@@ -11,6 +11,8 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 })
 export class AppComponent {
 
+  private static readonly LS_NOT_FIRST_ENTRY_KEY = 'notFirstEntry';
+
   private static readonly DEFAULT_LANG: Language = {
     name: 'en',
     bundleKey: 'LANG.EN',
@@ -29,6 +31,7 @@ export class AppComponent {
 
   constructor(private dialog: MatDialog, translate: TranslateService) {
     this.translateConfig(translate);
+    this.openTutorialIfNeeded();
   }
 
   openTutorial() {
@@ -38,6 +41,14 @@ export class AppComponent {
         top: '150px'
       }
     });
+  }
+
+  private openTutorialIfNeeded() {
+    let notFirstEntry = !!localStorage.getItem(AppComponent.LS_NOT_FIRST_ENTRY_KEY);
+    if (notFirstEntry) return;
+
+    this.openTutorial();
+    localStorage.setItem(AppComponent.LS_NOT_FIRST_ENTRY_KEY, String(true));
   }
 
   private translateConfig(translate: TranslateService) {
