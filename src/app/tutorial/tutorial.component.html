@@ -1,3 +1,65 @@
-<p>
-  tutorial works!
-</p>
+<span mat-dialog-title
+      class="dialog-title">
+  {{ 'TUTORIAL.TITLE' | translate }}
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+
+  <button mat-icon-button
+          mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</span>
+
+<mat-dialog-content>
+  <mat-horizontal-stepper>
+    <mat-step>
+      <ng-template matStepLabel>{{ 'TUTORIAL.DESC_STEP_TITLE' | translate }}</ng-template>
+      <p>{{'TUTORIAL.DESC_STEP_CONTENT' | translate}}</p>
+      <div>
+        <button mat-button
+                matStepperNext>{{ 'TUTORIAL.NEXT' | translate }}</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{ 'TUTORIAL.START_STEP_TITLE' | translate }}</ng-template>
+      <p>{{'TUTORIAL.START_STEP_CONTENT' | translate}}</p>
+      <div>
+        <button mat-button
+                matStepperPrevious>{{ 'TUTORIAL.BACK' | translate }}</button>
+        <button mat-button
+                matStepperNext>{{ 'TUTORIAL.NEXT' | translate }}</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{ 'TUTORIAL.PROCESS_STEP_TITLE' | translate }}</ng-template>
+      <p>
+        {{ 'TUTORIAL.PROCESS_STEP_DESC' | translate }}
+      </p>
+      <p>
+        {{ 'TUTORIAL.PROCESS_STEP_GROUPS' | translate }}
+      </p>
+      <ul>
+        <li>{{ 'TUTORIAL.PROCESS_STEP_SIMPLETONS' | translate }}</li>
+        <li>{{ 'TUTORIAL.PROCESS_STEP_KNAVES' | translate }}</li>
+        <li>{{ 'TUTORIAL.PROCESS_STEP_VINDICTIVE' | translate }}</li>
+      </ul>
+      <div>
+        <button mat-button
+                matStepperPrevious>{{ 'TUTORIAL.BACK' | translate }}</button>
+        <button mat-button
+                matStepperNext>{{ 'TUTORIAL.NEXT' | translate }}</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{ 'TUTORIAL.CONCLUSION_STEP_TITLE' | translate }}</ng-template>
+      <h4>{{ 'TUTORIAL.CONCLUSION_STEP_CONTENT' | translate }}</h4>
+      <div>
+        <button mat-button
+                matStepperPrevious>{{ 'TUTORIAL.BACK' | translate }}</button>
+        <button mat-button
+                mat-dialog-close>{{ 'TUTORIAL.DONE' | translate }}</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

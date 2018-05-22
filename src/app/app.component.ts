@@ -32,7 +32,12 @@ export class AppComponent {
   }
 
   openTutorial() {
-    this.dialog.open(TutorialComponent);
+    this.dialog.open(TutorialComponent, {
+      width: '800px',
+      position: {
+        top: '150px'
+      }
+    });
   }
 
   private translateConfig(translate: TranslateService) {
