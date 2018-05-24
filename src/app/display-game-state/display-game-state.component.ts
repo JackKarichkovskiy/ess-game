@@ -55,6 +55,8 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
   }
 
   get gameProgress() {
+    if (!this.ngRedux.getState().isRunning) return 0;
+
     let gameDuration = this.gameService.getCurrentConfig().gameDuration;
     let gameProgress = this.step / gameDuration * GameConfig.ONE_HUNDRED_PERCENT;
     return Math.round(gameProgress);

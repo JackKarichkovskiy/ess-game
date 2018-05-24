@@ -51,7 +51,7 @@
         "BACK": "Back",
         "DONE": "Done",
         "DESC_STEP_TITLE": "Description",
-        "DESC_STEP_CONTENT": "ESS (Evolutionary Stable Strategy) Game - is the game-simulation that helps you to model and observe interaction between three inhabitant groups (Simpletons, Knaves and Vindictive). Every group has its own behaviour.",
+        "DESC_STEP_CONTENT": "ESS (Evolutionary Stable Strategy) Game - is the game-simulation that helps you to model and observe interaction between three inhabitant groups (Simpletons, Knaves and Vindictive). Every group has its own behaviour. At the end of the game the final results of the whole group population will be displayed.",
         "START_STEP_TITLE": "Run Game",
         "START_STEP_CONTENT": "To run simulation you need to adjust start percentage of each group (it will change during the game). Additionally, you can adjust additional configurations, such as, game speed, random seed, game duration. After that you should run the simulation pressing 'Start!' button.",
         "PROCESS_STEP_TITLE": "Game Process",
