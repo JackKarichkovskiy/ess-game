@@ -20,25 +20,23 @@
     </span>
 </mat-toolbar>
 
-<mat-sidenav-container class="app-container">
-    <mat-sidenav #initForm
+<mat-drawer-container class="app-container">
+    <mat-drawer #initForm
                  mode="side"
                  [(opened)]="initFormPanelOpened"
                  class="init-form-container">
-        <mat-card class="column"
-                  style="background-color:rgb(235, 198, 198);">
+        <mat-card class="column">
             <mat-card-content>
                 <init-game-form></init-game-form>
             </mat-card-content>
         </mat-card>
-    </mat-sidenav>
+    </mat-drawer>
 
-    <mat-sidenav-content class="display-container">
-        <mat-card class="column"
-                  style="background-color:rgb(211, 163, 141);">
+    <mat-drawer-content class="display-container">
+        <mat-card class="column">
             <mat-card-content>
                 <display-game-state></display-game-state>
             </mat-card-content>
         </mat-card>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-drawer-content>
+</mat-drawer-container>

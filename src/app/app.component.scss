@@ -1,0 +1,58 @@
+@import '~common.scss';
+
+$marginBetweenPanels: 10px;
+
+.toolbar {
+    height: 7vh;
+    margin-left: $marginBetweenPanels;
+    margin-right: $marginBetweenPanels;
+    width: inherit;
+    border-radius: 2px;
+}
+
+#logoTitle {
+    margin-left: 8px;
+}
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.right-toolbar-group > * {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /* Clear floats after the columns */
+  .app-container:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Create two unequal columns that floats next to each other */
+  .column {
+    height: 88vh;
+    background-color: darken($color: $backgroundColor, $amount: 30%);
+    margin-right: $marginBetweenPanels;
+    margin-left: $marginBetweenPanels;
+  }
+
+  .init-form-container {
+      background-color: $backgroundColor;
+      width: 30vw;
+      padding-top: $marginBetweenPanels;
+  }
+
+  .display-container {
+      background-color: $backgroundColor;
+      width: 100%;
+      padding-top: $marginBetweenPanels;
+  }

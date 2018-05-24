@@ -1,0 +1,9 @@
+@import 'common';
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: $backgroundColor;
+}

@@ -4,7 +4,7 @@
 
     <div class="settings">
         <mat-accordion>
-            <mat-expansion-panel [class.invalidPanel]="f.submitted && perGroup.invalid"
+            <mat-expansion-panel class="settings-expansion-panel" [class.invalidPanel]="f.submitted && perGroup.invalid"
                                  expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -66,7 +66,7 @@
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [class.invalidPanel]="f.submitted && advSettGroup.invalid">
+            <mat-expansion-panel class="settings-expansion-panel" [class.invalidPanel]="f.submitted && advSettGroup.invalid">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         {{ 'INIT_FORM.ADV_SETTINGS' | translate }}
