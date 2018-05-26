@@ -1,10 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { MatButtonModule, MatSelectModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { HttpLoaderFactory } from '../../app.module';
-import { MatComponentsModule } from '../../material/mat-components.module';
+import { HttpLoaderFactory } from '../i18n.module';
 import { LocalSelectComponent } from './local-select.component';
+
 
 describe('LocalSelectComponent', () => {
   let component: LocalSelectComponent;
@@ -13,7 +14,9 @@ describe('LocalSelectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatComponentsModule,
+        NoopAnimationsModule,
+        MatSelectModule,
+        MatButtonModule,
         HttpClientModule,
         TranslateModule.forRoot({
           loader: {

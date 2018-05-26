@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgRedux } from 'ng2-redux';
 import { Unsubscribe } from 'redux';
-import { Observable, Subscription } from 'rxjs';
-
+import { Subscription } from 'rxjs';
 import { GameConfig } from '../models/game-config';
 import { GameState } from '../models/game-state';
-import { GameService } from '../services/game.service';
 import { GameStatistic } from '../models/game-statistic';
-import { TranslateService } from '@ngx-translate/core';
+import { GameService } from '../services/game.service';
+
 
 @Component({
   selector: 'display-game-state',
@@ -42,12 +42,12 @@ export class DisplayGameStateComponent implements OnInit, OnDestroy {
     private gameService: GameService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.reduxUpdateData();
     this.translateSetup();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.unsubscribeReduxFn();
     this.simpletonsTranslateSub.unsubscribe();
     this.knavesTranslateSub.unsubscribe();

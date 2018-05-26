@@ -1,12 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { GameResultsComponent } from './game-results.component';
-import { MatComponentsModule } from '../material/mat-components.module';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { I18nModule } from '../i18n/i18n.module';
+import { MatComponentsModule } from '../material/mat-components.module';
 import { GameStatistic } from '../models/game-statistic';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '../app.module';
+import { GameResultsComponent } from './game-results.component';
 
 describe('GameResultsComponent', () => {
   let component: GameResultsComponent;
@@ -16,14 +13,7 @@ describe('GameResultsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatComponentsModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        })
+        I18nModule
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: new GameStatistic() }

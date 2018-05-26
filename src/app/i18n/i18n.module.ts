@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { I18nComponent } from './i18n.component';
 import { LocalSelectComponent } from './local-select/local-select.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { LocalSelectComponent } from './local-select/local-select.component';
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     MatSelectModule,
     MatButtonModule,
     HttpClientModule,

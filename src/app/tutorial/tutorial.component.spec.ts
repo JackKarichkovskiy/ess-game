@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { MatComponentsModule } from '../material/mat-components.module';
 import { TutorialComponent } from './tutorial.component';
+import { I18nModule } from '../i18n/i18n.module';
 
 describe('TutorialComponent', () => {
   let component: TutorialComponent;
@@ -13,11 +14,9 @@ describe('TutorialComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatComponentsModule,
-        TranslateModule.forRoot({
-        })
+        I18nModule
       ],
       providers: [
-        { provide: TranslateService, useClass: TranslateServiceStub }
       ],
       declarations: [TutorialComponent]
     })
@@ -34,11 +33,3 @@ describe('TutorialComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-export class TranslateServiceStub extends TranslateService {
-
-  get(key: any): any {
-    return Observable.of(key);
-  }
-
-}

@@ -1,14 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { InitGameFormComponent } from './init-game-form.component';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { CustomFormsModule } from 'ng2-validation';
-import { GameService } from '../services/game.service';
+import { I18nModule } from '../i18n/i18n.module';
 import { MatComponentsModule } from '../material/mat-components.module';
-import { NgReduxModule, NgRedux } from 'ng2-redux';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '../app.module';
+import { GameService } from '../services/game.service';
+import { InitGameFormComponent } from './init-game-form.component';
 
 describe('InitGameFormComponent', () => {
   let component: InitGameFormComponent;
@@ -24,14 +21,7 @@ describe('InitGameFormComponent', () => {
         CustomFormsModule,
         ReactiveFormsModule,
         NgReduxModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        })
+        I18nModule
       ],
       declarations: [InitGameFormComponent],
       providers: [GameService]

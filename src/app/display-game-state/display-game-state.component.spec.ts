@@ -3,31 +3,37 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DisplayGameStateComponent } from './display-game-state.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
-import { GameState } from '../models/game-state';
+import { GameState, INITIAL_STATE } from '../models/game-state';
+import { I18nModule } from '../i18n/i18n.module';
+import { MatComponentsModule } from '../material/mat-components.module';
+import { GameService } from '../services/game.service';
+import { Unsubscribe } from 'redux';
+import { Subscription } from 'rxjs';
+import { rootReducer } from '../models/actions';
 
-xdescribe('DisplayGameStateComponent', () => {
+describe('DisplayGameStateComponent', () => {
   let component: DisplayGameStateComponent;
   let fixture: ComponentFixture<DisplayGameStateComponent>;
-
-  // let reduxFactory = () => {
-  //   let ngRedux = new NgRedux<GameState>(null);
-  //   ngRedux.configureStore(rootReducer, undefined);
-  //   return ngRedux;
-  // };
 
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
       imports: [
+        MatComponentsModule,
         ChartsModule,
-        NgReduxModule
+        NgReduxModule,
+        I18nModule
       ],
       declarations: [
-        DisplayGameStateComponent,
-        // { provide: NgRedux, useFactory: reduxFactory },
+        DisplayGameStateComponent
+      ],
+      providers: [
+        GameService
       ]
     })
       .compileComponents();
+    let ngRedux: NgRedux<GameState> = TestBed.get(NgRedux);
+    ngRedux.configureStore(rootReducer, INITIAL_STATE, [], []);
   }));
 
   beforeEach(() => {
