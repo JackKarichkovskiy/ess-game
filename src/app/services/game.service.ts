@@ -53,7 +53,7 @@ export class GameService {
   }
 
   private prepareNextSteps(config: GameConfig): Promise<any> {
-    let delay = config.animationSpeed;
+    let delay = config.animationDelay;
     return Observable.timer(delay, delay)
       .takeUntil(this.endGameEmitter)
       .takeWhile((value, index) => this.checkStopGameCondition())

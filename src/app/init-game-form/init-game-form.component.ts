@@ -18,7 +18,7 @@ import { GameStatistic } from '../models/game-statistic';
 export class InitGameFormComponent implements OnInit {
 
   gameConfig: GameConfig = new GameConfig();
-  @select('isRunning') gameIsRunning: Observable<boolean>;
+  @select('isRunning') gameIsRunning$: Observable<boolean>;
 
   randomSeedEnabled = false;
   gameDurationEnabled = false;
@@ -90,7 +90,7 @@ export class InitGameFormComponent implements OnInit {
   }
 
   get gameSpeed() {
-    return this.form.get('animationSpeed');
+    return this.form.get('animationDelay');
   }
 
   private buildFormValidation(fb: FormBuilder) {
@@ -110,7 +110,7 @@ export class InitGameFormComponent implements OnInit {
       }, {
           validator: PercentageValidators.cannotBeGtThanLimit
         }),
-      animationSpeed: fb.control(''),
+      animationDelay: fb.control(''),
 
       // Adv Settings
       advSettingsGroup: fb.group({
@@ -134,7 +134,7 @@ export class InitGameFormComponent implements OnInit {
   }
 
   private controlGameSpeedDisability() {
-    this.gameIsRunning.subscribe(gameIsRun => {
+    this.gameIsRunning$.subscribe(gameIsRun => {
       if (gameIsRun) this.gameSpeed.disable();
       else this.gameSpeed.enable();
     });

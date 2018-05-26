@@ -11,7 +11,3 @@
 img {
     vertical-align: middle;
 }
-
-::ng-deep .local-select * {
-    color: white;
-}

@@ -4,7 +4,8 @@
 
     <div class="settings">
         <mat-accordion>
-            <mat-expansion-panel class="settings-expansion-panel" [class.invalidPanel]="f.submitted && perGroup.invalid"
+            <mat-expansion-panel class="settings-expansion-panel"
+                                 [class.invalidPanel]="f.submitted && perGroup.invalid"
                                  expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -56,17 +57,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="gameSpeed">{{ 'INIT_FORM.GAME_SPEED_LABEL' | translate }}</label>
+                    <label for="gameSpeed">{{ 'INIT_FORM.GAME_DELAY_LABEL' | translate }}</label>
                     <mat-slider id="gameSpeed"
-                                formControlName="animationSpeed"
+                                formControlName="animationDelay"
                                 min="100"
                                 max="2000"
+                                step="100"
                                 thumbLabel="true"
-                                [(ngModel)]="gameConfig.animationSpeed"></mat-slider>
+                                [(ngModel)]="gameConfig.animationDelay"></mat-slider>
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel class="settings-expansion-panel" [class.invalidPanel]="f.submitted && advSettGroup.invalid">
+            <mat-expansion-panel class="settings-expansion-panel"
+                                 [class.invalidPanel]="f.submitted && advSettGroup.invalid">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         {{ 'INIT_FORM.ADV_SETTINGS' | translate }}
@@ -118,11 +121,11 @@
     <div class="buttons">
         <button mat-raised-button
                 color="primary"
-                [disabled]="f.invalid || (gameIsRunning | async)">{{ 'INIT_FORM.START_BTN' | translate }}</button>
+                [disabled]="f.invalid || (gameIsRunning$ | async)">{{ 'INIT_FORM.START_BTN' | translate }}</button>
         <button mat-raised-button
                 type="button"
                 color="accent"
-                [disabled]="!(gameIsRunning | async)"
+                [disabled]="!(gameIsRunning$ | async)"
                 (click)="stopGame()">{{ 'INIT_FORM.STOP_BTN' | translate }}</button>
     </div>
 </form>

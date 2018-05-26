@@ -2,7 +2,7 @@
 export class GameConfig {
 
     static readonly ONE_HUNDRED_PERCENT = 100;
-    static readonly DEFAULT_ANIMATION_SPEED = 500;
+    static readonly DEFAULT_ANIMATION_DELAY = 500;
     static readonly DEFAULT_GAME_DURATION = 100;
     static readonly INHABITANTS_CREATION_FREQUENCY = 5;
     static readonly INHABITANTS_CREATION_AMOUNT = 100;
@@ -15,7 +15,7 @@ export class GameConfig {
     simpletonsPercent: number;
     knavesPercent: number;
 
-    animationSpeed = GameConfig.DEFAULT_ANIMATION_SPEED;
+    animationDelay = GameConfig.DEFAULT_ANIMATION_DELAY;
     gameDuration = GameConfig.DEFAULT_GAME_DURATION;
     randomSeed: number;
 

@@ -1,26 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { AppComponent } from '../app.component';
+import { I18nComponent } from '../i18n.component';
 
 @Component({
   selector: 'local-select',
   templateUrl: './local-select.component.html',
   styleUrls: ['./local-select.component.css']
 })
-export class LocalSelectComponent implements OnInit {
+export class LocalSelectComponent {
 
   constructor(private translateService: TranslateService) { }
-
-  ngOnInit() {
-  }
 
   onSelectChange(newLang: string) {
     this.translateService.use(newLang);
   }
 
   get langs(){
-    return AppComponent.DEFAULT_SUPPORTED_LANGS;
+    return I18nComponent.DEFAULT_SUPPORTED_LANGS;
   }
 
   get currentLang() {

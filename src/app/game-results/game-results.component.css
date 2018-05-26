@@ -6,3 +6,7 @@
     -webkit-align-content: center;
     align-content: center;
 }
+
+#badMood {
+    vertical-align: middle;
+}

@@ -2,6 +2,7 @@
 export abstract class Inhabitant {
 
     private static idCounter = 0;
+    
     health: InhabitantHealth = InhabitantHealth.Healthy;
 
     private id = Inhabitant.idCounter++;
@@ -12,19 +13,9 @@ export abstract class Inhabitant {
         this.className = this.constructor.name;
     }
 
-    private help(other: Inhabitant): boolean {
-        if (this.isHelping(other)) {
-            other.upgradeHealth();
-            return true;
-        } else {
-            other.downgradeHealth();
-            return false;
-        }
-    }
+    abstract clone(): Inhabitant;
 
     protected abstract isHelping(other: Inhabitant): boolean;
-
-    abstract clone(): Inhabitant;
 
     askHelp(other: Inhabitant): boolean {
         if (!other) {
@@ -33,6 +24,20 @@ export abstract class Inhabitant {
         }
 
         return other.help(this);
+    }
+
+    isDead() {
+        return this.health === InhabitantHealth.Dead;
+    }
+
+    private help(other: Inhabitant): boolean {
+        if (this.isHelping(other)) {
+            other.upgradeHealth();
+            return true;
+        } else {
+            other.downgradeHealth();
+            return false;
+        }
     }
 
     private downgradeHealth() {
@@ -64,41 +69,33 @@ export abstract class Inhabitant {
                 throw new Error('Unpredictable health state: ' + this.health);
         }
     }
-
-    isDead() {
-        return this.health === InhabitantHealth.Dead;
-    }
 }
 
 export class Simpleton extends Inhabitant {
 
-    protected isHelping(other: Inhabitant): boolean {
-        return true;
-    }
-
     clone(): Simpleton {
         return Object.assign(new Simpleton(), this);
+    }
+
+    protected isHelping(other: Inhabitant): boolean {
+        return true;
     }
 }
 
 export class Knave extends Inhabitant {
 
-    protected isHelping(other: Inhabitant): boolean {
-        return false;
-    }
-
     clone(): Knave {
         return Object.assign(new Knave(), this);
+    }
+
+    protected isHelping(other: Inhabitant): boolean {
+        return false;
     }
 }
 
 export class Vindictive extends Inhabitant {
 
     notHelpingInhabitants: Inhabitant[] = [];
-
-    protected isHelping(other: Inhabitant): boolean {
-        return !this.notHelpingInhabitants.includes(other);
-    }
 
     askHelp(other: Inhabitant): boolean {
         if (super.askHelp(other)) return true;
@@ -110,6 +107,10 @@ export class Vindictive extends Inhabitant {
 
     clone(): Vindictive {
         return Object.assign(new Vindictive(), this, { notHelpingInhabitants: Object.assign([], this.notHelpingInhabitants) });
+    }
+
+    protected isHelping(other: Inhabitant): boolean {
+        return !this.notHelpingInhabitants.includes(other);
     }
 }
 

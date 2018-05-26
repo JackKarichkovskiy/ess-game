@@ -2,8 +2,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { HttpLoaderFactory } from '../app.module';
-import { MatComponentsModule } from '../material/mat-components.module';
+import { HttpLoaderFactory } from '../../app.module';
+import { MatComponentsModule } from '../../material/mat-components.module';
 import { LocalSelectComponent } from './local-select.component';
 
 describe('LocalSelectComponent', () => {

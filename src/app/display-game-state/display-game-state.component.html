@@ -21,10 +21,8 @@
                 </mat-tab-group>
 
                 <mat-card>
-                        <mat-card-content>
-                                <p>{{ 'DISPLAY_PANEL.GAME_PROGRESS' | translate }}: {{ gameProgress }}%</p>
-                                <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
-                        </mat-card-content>
+                        <p>{{ 'DISPLAY_PANEL.GAME_PROGRESS' | translate }}: {{ gameProgress }}%</p>
+                        <mat-progress-bar [value]="gameProgress"></mat-progress-bar>
                 </mat-card>
         </div>
 
